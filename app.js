@@ -73,9 +73,7 @@
 
   clearBtn.addEventListener("click", function () {
     var cards = results.querySelectorAll(".card");
-    for (var i = 0; i < cards.length; i++) cards[i].remove();
-    emptyState.hidden = false;
-    clearBtn.hidden = true;
+    for (var i = 0; i < cards.length; i++) dropCard(cards[i]);
     input.value = "";
     input.focus();
   });
@@ -94,6 +92,10 @@
 
   /* ---------- Rendering ---------- */
 
+  // How long a "no player wears this" card stays up before clearing itself.
+  var MISSING_LINGER_MS = 2600;
+  var MISSING_FADE_MS = 500;
+
   function addCard(num, players) {
     emptyState.hidden = true;
     clearBtn.hidden = false;
@@ -101,21 +103,50 @@
     // Looking the same number up twice moves it back to the top rather than
     // stacking a duplicate.
     var existing = results.querySelector('.card[data-num="' + num + '"]');
-    if (existing) existing.remove();
+    if (existing) dropCard(existing);
 
     var previous = results.querySelector(".card--latest");
-    if (previous) {
-      previous.classList.remove("card--latest", "card--entering");
-      var body = previous.querySelector(".card__body");
-      if (body) body.classList.remove("card__body--pair");
-    }
+    if (previous) previous.classList.remove("card--latest", "card--entering");
 
     var card = buildCard(num, players);
     card.classList.add("card--latest", "card--entering");
     // Newest on top; earlier lookups stay below, in the order they were made.
     results.insertBefore(card, emptyState.nextSibling);
 
+    // A fat-fingered number is the common case for a miss, so it cleans up
+    // after itself instead of leaving a dead card in the history.
+    if (!players.length) scheduleDismiss(card);
+
     window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function scheduleDismiss(card) {
+    card._dismissTimer = setTimeout(function () {
+      if (!card.isConnected) return;
+      card.classList.add("card--dismissing");
+      card._dismissTimer = setTimeout(function () {
+        dropCard(card);
+      }, MISSING_FADE_MS);
+    }, MISSING_LINGER_MS);
+  }
+
+  // Single exit for every card removal, so a pending fade timer can never fire
+  // against a card that is already gone.
+  function dropCard(card) {
+    if (card._dismissTimer) clearTimeout(card._dismissTimer);
+    var wasLatest = card.classList.contains("card--latest");
+    card.remove();
+
+    // Promote whatever is now on top so there is always exactly one hero card.
+    if (wasLatest) {
+      var next = results.querySelector(".card");
+      if (next) next.classList.add("card--latest");
+    }
+
+    if (!results.querySelector(".card")) {
+      emptyState.hidden = false;
+      clearBtn.hidden = true;
+    }
   }
 
   function buildCard(num, players) {

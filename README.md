@@ -19,7 +19,10 @@ the press box, and it works with no signal once it has been opened.
   Looking up the same number twice moves it back to the top instead of adding a
   duplicate. **Clear lookups** empties the list, and so does a page refresh.
 - **Numbers with no player** (#69, #71, #91, #93, #94) get a plain "no player
-  wears this" card rather than nothing happening.
+  wears this" card, which fades and collapses after about three seconds so a
+  mistyped number doesn't leave litter in the history. The card below it is
+  promoted back to the full hero treatment when it goes. Timing lives in
+  `MISSING_LINGER_MS` in `app.js`.
 
 ## Updating the roster
 
