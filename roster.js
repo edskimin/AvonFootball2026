@@ -14,6 +14,8 @@
 
   var searchInput = document.getElementById("search-input");
   var searchClear = document.getElementById("search-clear");
+  var searchToggle = document.getElementById("search-toggle");
+  var searchRow = document.getElementById("search-row");
 
   var players = [];
   var byNumber = {};
@@ -97,15 +99,7 @@
 
   function matches(player) {
     if (!query) return true;
-
-    // All digits: treat it as a jersey number rather than part of a name.
-    if (/^\d+$/.test(query)) return String(player.num).indexOf(query) === 0;
-
-    if (normalize(player.name).indexOf(query) !== -1) return true;
-
-    return player.pos.some(function (pos) {
-      return pos.toLowerCase() === query;
-    });
+    return normalize(player.name).indexOf(query) !== -1;
   }
 
   function visible(list) {
@@ -192,25 +186,14 @@
       });
     });
 
-    var shown = visible(players).length;
-    var tail = document.createElement("p");
-    tail.className = "roster-status";
-
-    if (query && !shown) {
-      tail.className = "roster-status roster-status--empty";
-      tail.textContent = "No player matches “" + searchInput.value.trim() + "”.";
-    } else if (query) {
-      tail.textContent = shown + (shown === 1 ? " match" : " matches");
-    } else if (sort === "position") {
-      // The position total exceeds the roster because two-way players appear
-      // in more than one group; saying so avoids looking like a bug.
-      tail.textContent = players.length + " players · listed under each position they play";
-    } else {
-      tail.textContent =
-        players.length + " players · " + Object.keys(byNumber).length + " numbers";
+    // A search that finds nothing needs saying; anything else speaks for itself.
+    if (query && !visible(players).length) {
+      var empty = document.createElement("p");
+      empty.className = "roster-status roster-status--empty";
+      empty.textContent = "No player matches “" + searchInput.value.trim() + "”.";
+      frag.appendChild(empty);
     }
 
-    frag.appendChild(tail);
     list.appendChild(frag);
 
     // Jumping between sections is meaningless once a search has narrowed the
@@ -253,12 +236,12 @@
   /* ---------- Controls ---------- */
 
   function bindControls() {
-    var buttons = document.querySelectorAll(".sort-btn");
+    var buttons = document.querySelectorAll(".sort-btn[data-sort]");
 
     for (var i = 0; i < buttons.length; i++) {
       buttons[i].addEventListener("click", function (event) {
         var next = event.currentTarget.dataset.sort;
-        if (next === sort) return;
+        if (!next || next === sort) return;
         sort = next;
         syncButtons();
 
@@ -272,6 +255,16 @@
       });
     }
 
+    searchToggle.addEventListener("click", function () {
+      var open = searchRow.hidden;
+      searchRow.hidden = !open;
+      searchToggle.setAttribute("aria-expanded", String(open));
+      searchToggle.setAttribute("aria-pressed", String(open));
+      if (open) searchInput.focus();
+      else clearSearch(true);
+      measureSortbar();
+    });
+
     searchInput.addEventListener("input", function () {
       query = normalize(searchInput.value);
       searchClear.hidden = !searchInput.value.length;
@@ -279,10 +272,10 @@
     });
 
     searchInput.addEventListener("keydown", function (event) {
-      if (event.key === "Escape") clearSearch();
+      if (event.key === "Escape") clearSearch(false);
     });
 
-    searchClear.addEventListener("click", clearSearch);
+    searchClear.addEventListener("click", function () { clearSearch(false); });
 
     jumpSelect.addEventListener("change", function () {
       var target = document.getElementById(jumpSelect.value);
@@ -296,16 +289,17 @@
     window.addEventListener("orientationchange", measureSortbar);
   }
 
-  function clearSearch() {
+  // closing: the field is being hidden, so don't pull focus back into it.
+  function clearSearch(closing) {
     searchInput.value = "";
     query = "";
     searchClear.hidden = true;
     render();
-    searchInput.focus();
+    if (!closing) searchInput.focus();
   }
 
   function syncButtons() {
-    var buttons = document.querySelectorAll(".sort-btn");
+    var buttons = document.querySelectorAll(".sort-btn[data-sort]");
     for (var i = 0; i < buttons.length; i++) {
       buttons[i].setAttribute("aria-pressed", String(buttons[i].dataset.sort === sort));
     }

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Avon Eagles Football 2026 — Roster Lookup</title>
-<meta name="description" content="Enter a jersey number to look up an Avon Eagles football player.">
+<title>Avon Eagles Football 2026 — Full Roster</title>
+<meta name="description" content="The full 2026 Avon Eagles varsity football roster, sortable by number, name, grade, or position.">
 <meta name="theme-color" content="#4B2E83">
 
 <link rel="manifest" href="manifest.webmanifest">
@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="styles.css">
 </head>
-<body class="has-keypad">
+<body>
 
 <header class="masthead">
   <div class="masthead__inner">
@@ -30,74 +30,93 @@
   </div>
   <nav class="tabs" aria-label="Primary">
     <div class="tabs__inner">
-      <a class="tab tab--active" href="index.html" aria-current="page">Lookup</a>
-      <a class="tab" href="roster.html">Roster</a>
+      <a class="tab" href="lookup.html">Lookup</a>
+      <a class="tab tab--active" href="index.html" aria-current="page">Roster</a>
       <a class="tab" href="schedule.html">Schedule</a>
     </div>
   </nav>
 </header>
 
-<div class="entry">
-  <div class="entry__inner">
-    <!-- Deliberately not an <input>. A focusable field would open the iOS
-         keyboard and its AutoFill bar over the results. -->
-    <p class="entry__display entry__display--empty" id="entry-display">
-      <span class="visually-hidden">Jersey number </span><span id="entry-value">00</span>
-    </p>
+<div class="sortbar" id="sortbar">
+  <div class="sortbar__inner">
+    <div class="sortbar__row">
+      <div class="sortbar__options" role="group" aria-label="Sort roster by">
+        <button class="sort-btn" type="button" data-sort="number" aria-pressed="true">Number</button>
+        <button class="sort-btn" type="button" data-sort="alpha" aria-pressed="false">A&ndash;Z</button>
+        <button class="sort-btn" type="button" data-sort="grade" aria-pressed="false">Grade</button>
+        <button class="sort-btn" type="button" data-sort="position" aria-pressed="false">Position</button>
+      </div>
+      <button class="sort-btn sort-btn--search" id="search-toggle" type="button"
+              aria-label="Search by name" aria-expanded="false" aria-controls="search-row">
+        <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false">
+          <circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="2"/>
+          <path d="M12.8 12.8 17.5 17.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="sortbar__row sortbar__row--search" id="search-row" hidden>
+      <label class="search" for="search-input">
+        <span class="visually-hidden">Search players by name</span>
+        <input
+          class="search__input"
+          id="search-input"
+          type="text"
+          placeholder="Search by name"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+          enterkeyhint="search">
+      </label>
+      <button class="search__clear" id="search-clear" type="button" aria-label="Clear search" hidden>&times;</button>
+    </div>
+    <div class="sortbar__row sortbar__row--jump" id="jump-row" hidden>
+      <label class="jump" for="jump-select">
+        <span class="visually-hidden">Jump to section</span>
+        <select class="jump__select" id="jump-select"></select>
+      </label>
+    </div>
   </div>
 </div>
 
-<main class="stack" id="results" aria-live="polite" aria-atomic="false">
-  <section class="empty" id="empty-state">
-    <p class="empty__lede">Enter a jersey number.</p>
-    <p class="empty__note">27 numbers are worn by two players. When that happens, both appear on the card with the older player on top.</p>
-  </section>
+<main class="stack stack--roster" id="roster-list">
+  <p class="roster-status" id="roster-status">Loading roster…</p>
 </main>
 
-<div class="stack stack--actions">
-  <button class="clear-btn" id="clear-btn" type="button" hidden>Clear lookups</button>
-</div>
-
 <footer class="site-footer">
-  <p>2026 Avon Eagles Varsity Football</p>
+  <p>2026 Avon Eagles Varsity Football <span class="site-footer__caveat">(unofficial, subject to change)</span></p>
   <p class="site-footer__note">Developed by
     <a href="https://www.linkedin.com/in/edskimin" target="_blank" rel="noopener">Ed Skimin</a> of
-    <a href="https://www.emergeinc.com" target="_blank" rel="noopener">Emerge Inc.</a>
+    <a href="https://www.emergeinc.com" target="_blank" rel="noopener">Emerge Inc.</a> and
+    <a href="https://www.loraincounty.com" target="_blank" rel="noopener">LorainCounty.com</a>
   </p>
 </footer>
 
-<nav class="keypad" id="keypad" aria-label="Number pad">
-  <div class="keypad__inner">
-    <button class="key" type="button" data-digit="1" disabled>1</button>
-    <button class="key" type="button" data-digit="2" disabled>2</button>
-    <button class="key" type="button" data-digit="3" disabled>3</button>
-    <button class="key" type="button" data-digit="4" disabled>4</button>
-    <button class="key" type="button" data-digit="5" disabled>5</button>
-    <button class="key" type="button" data-digit="6" disabled>6</button>
-    <button class="key" type="button" data-digit="7" disabled>7</button>
-    <button class="key" type="button" data-digit="8" disabled>8</button>
-    <button class="key" type="button" data-digit="9" disabled>9</button>
-    <button class="key key--back" type="button" data-action="back" aria-label="Delete last digit" disabled>&#9003;</button>
-    <button class="key" type="button" data-digit="0" disabled>0</button>
-    <button class="key key--go" type="button" data-action="go" disabled>GO</button>
-  </div>
-</nav>
-
 <template id="card-template">
-  <article class="card">
+  <article class="card card--row">
     <div class="card__num"><span class="card__num-value"></span></div>
     <div class="card__body"></div>
   </article>
 </template>
 
 <template id="player-template">
-  <div class="player">
-    <h2 class="player__name"></h2>
+  <div class="player player--row">
+    <div class="player__head">
+      <h3 class="player__name"></h3>
+      <p class="player__pos-inline"></p>
+    </div>
     <p class="player__meta"></p>
-    <ul class="player__pos"></ul>
   </div>
 </template>
 
-<script src="app.js"></script>
+<template id="section-template">
+  <h2 class="section-head">
+    <span class="section-head__label"></span>
+    <span class="section-head__tag"></span>
+    <span class="section-head__count"></span>
+  </h2>
+</template>
+
+<script src="roster.js"></script>
 </body>
 </html>

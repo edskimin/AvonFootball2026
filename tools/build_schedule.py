@@ -7,7 +7,6 @@ Columns:
   date         ISO, e.g. 2026-08-20
   opponent     school name, no "vs" or "@"
   site         home | away
-  conference   yes | no   (Southwestern Conference game)
   time         free text, e.g. "7:00 PM". Blank is fine and renders as nothing.
   result       optional, e.g. "W 42-21". Add after a game is played.
 
@@ -50,7 +49,6 @@ def main():
             "label": day.strftime("%A, %B ") + str(day.day),
             "opponent": (row.get("opponent") or "").strip(),
             "away": away,
-            "conference": (row.get("conference") or "").strip().lower() == "yes",
             "time": (row.get("time") or "").strip(),
             "result": (row.get("result") or "").strip(),
         })
@@ -66,11 +64,10 @@ def main():
 
     OUT.write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
 
-    conf = sum(1 for g in games if g["conference"])
     home = sum(1 for g in games if not g["away"])
     missing = [g["date"] for g in games if not g["time"]]
     print(f"{len(games)} games -> {OUT.relative_to(ROOT)}")
-    print(f"{home} home, {len(games) - home} away, {conf} conference")
+    print(f"{home} home, {len(games) - home} away")
     if missing:
         print(f"no kickoff time set for {len(missing)} games: {', '.join(missing)}")
 

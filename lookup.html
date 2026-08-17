@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Avon Eagles Football 2026 — Roster Lookup</title>
+<meta name="description" content="Enter a jersey number to look up an Avon Eagles football player.">
+<meta name="theme-color" content="#4B2E83">
+
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/icon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="Eagles Roster">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<link rel="preload" href="assets/fonts/bitter-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/opensans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="has-keypad">
+
+<header class="masthead">
+  <div class="masthead__inner">
+    <img class="masthead__mark" src="assets/eagle.png" alt="" width="480" height="205">
+    <div class="masthead__text">
+      <p class="masthead__eyebrow">2026 Varsity Roster</p>
+      <h1 class="masthead__title">Avon Eagles Football</h1>
+    </div>
+  </div>
+  <nav class="tabs" aria-label="Primary">
+    <div class="tabs__inner">
+      <a class="tab tab--active" href="lookup.html" aria-current="page">Lookup</a>
+      <a class="tab" href="index.html">Roster</a>
+      <a class="tab" href="schedule.html">Schedule</a>
+    </div>
+  </nav>
+</header>
+
+<div class="entry">
+  <div class="entry__inner">
+    <!-- Deliberately not an <input>. A focusable field would open the iOS
+         keyboard and its AutoFill bar over the results. -->
+    <p class="entry__display entry__display--empty" id="entry-display">
+      <span class="visually-hidden">Jersey number </span><span id="entry-value">00</span>
+    </p>
+  </div>
+</div>
+
+<main class="stack" id="results" aria-live="polite" aria-atomic="false">
+  <section class="empty" id="empty-state">
+    <p class="empty__lede">Enter a jersey number.</p>
+  </section>
+</main>
+
+<div class="stack stack--actions">
+  <button class="clear-btn" id="clear-btn" type="button" hidden>Clear lookups</button>
+</div>
+
+<footer class="site-footer">
+  <p>2026 Avon Eagles Varsity Football <span class="site-footer__caveat">(unofficial, subject to change)</span></p>
+  <p class="site-footer__note">Developed by
+    <a href="https://www.linkedin.com/in/edskimin" target="_blank" rel="noopener">Ed Skimin</a> of
+    <a href="https://www.emergeinc.com" target="_blank" rel="noopener">Emerge Inc.</a> and
+    <a href="https://www.loraincounty.com" target="_blank" rel="noopener">LorainCounty.com</a>
+  </p>
+</footer>
+
+<nav class="keypad" id="keypad" aria-label="Number pad">
+  <div class="keypad__inner">
+    <button class="key" type="button" data-digit="1" disabled>1</button>
+    <button class="key" type="button" data-digit="2" disabled>2</button>
+    <button class="key" type="button" data-digit="3" disabled>3</button>
+    <button class="key" type="button" data-digit="4" disabled>4</button>
+    <button class="key" type="button" data-digit="5" disabled>5</button>
+    <button class="key" type="button" data-digit="6" disabled>6</button>
+    <button class="key" type="button" data-digit="7" disabled>7</button>
+    <button class="key" type="button" data-digit="8" disabled>8</button>
+    <button class="key" type="button" data-digit="9" disabled>9</button>
+    <button class="key key--back" type="button" data-action="back" aria-label="Delete last digit" disabled>&#9003;</button>
+    <button class="key" type="button" data-digit="0" disabled>0</button>
+    <button class="key key--go" type="button" data-action="go" disabled>GO</button>
+  </div>
+</nav>
+
+<template id="card-template">
+  <article class="card">
+    <div class="card__num"><span class="card__num-value"></span></div>
+    <div class="card__body"></div>
+  </article>
+</template>
+
+<template id="player-template">
+  <div class="player">
+    <h2 class="player__name"></h2>
+    <p class="player__meta"></p>
+    <ul class="player__pos"></ul>
+  </div>
+</template>
+
+<script src="app.js"></script>
+</body>
+</html>

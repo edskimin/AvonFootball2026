@@ -440,7 +440,7 @@ body.has-keypad {
 }
 
 .sortbar__row--jump { margin-top: 7px; }
-.sortbar__row--search { margin-bottom: 7px; }
+.sortbar__row--search { margin-top: 7px; }
 
 .search { flex: 1; min-width: 0; display: block; }
 
@@ -499,6 +499,8 @@ body.has-keypad {
   min-width: 0;
 }
 
+.site-footer__caveat { white-space: nowrap; }
+
 .sort-btn {
   flex: 1;
   font-family: var(--sans);
@@ -526,6 +528,23 @@ body.has-keypad {
 .sort-btn:focus-visible {
   outline: 3px solid var(--purple);
   outline-offset: 2px;
+}
+
+.sort-btn--search {
+  flex: none;
+  width: 40px;
+  padding: 7px 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sort-btn--search svg { display: block; }
+
+.sort-btn--search[aria-expanded="true"] {
+  color: var(--white);
+  background: var(--purple);
+  border-color: var(--purple);
 }
 
 .jump { display: block; width: 100%; }

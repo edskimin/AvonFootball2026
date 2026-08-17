@@ -44,15 +44,6 @@
       frag.appendChild(buildGame(game, index === nextIndex, game.date < today));
     });
 
-    var home = data.games.filter(function (g) { return !g.away; }).length;
-    var conf = data.games.filter(function (g) { return g.conference; }).length;
-
-    var tail = document.createElement("p");
-    tail.className = "roster-status";
-    tail.textContent = data.count + " games · " + home + " home · " +
-      (data.count - home) + " away · " + conf + " conference";
-    frag.appendChild(tail);
-
     list.appendChild(frag);
   }
 
@@ -76,7 +67,6 @@
     // Result once it exists, otherwise the date and any kickoff time.
     var bits = [game.label];
     if (game.time) bits.push(game.time);
-    if (game.conference) bits.push("Conference");
     if (game.result) bits.unshift(game.result);
     if (isNext) bits.unshift("Next game");
 

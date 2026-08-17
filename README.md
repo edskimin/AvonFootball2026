@@ -7,8 +7,9 @@ the press box, and it works with no signal once it has been opened.
 
 ## Three pages
 
-- **`index.html`** — the lookup. Enter a number, get the player.
-- **`roster.html`** — the full roster, two lines per player with positions
+- **`index.html`** — the full roster. This is the landing page.
+- **`lookup.html`** — the number lookup. Enter a number, get the player.
+- The roster, two lines per player with positions
   right-aligned on the name's line. Sortable four ways:
 
   | Sort | Behaviour |
@@ -20,10 +21,10 @@ the press box, and it works with no signal once it has been opened.
 
   Every sort but Number gets section dividers and a **Jump to…** menu.
 
-  The **search box** filters as you type and works in any sort. It matches
-  names (punctuation-insensitive, so `oreilly` finds O'Reilly and `rjross`
-  finds R.J. Ross), jersey numbers, and position abbreviations — typing `qb`
-  lists the quarterbacks. Escape or the × clears it.
+  The **magnifier button** opens a search field that filters by name as you
+  type, in any sort. Matching ignores punctuation, so `oreilly` finds
+  O'Reilly and `rjross` finds R.J. Ross. Escape or the × clears it; the
+  magnifier again hides and clears it.
 
   Two-way players are listed under **each** position they play, so the position
   totals add up to more than 118. That is deliberate — you want the whole
@@ -48,12 +49,10 @@ Edit `data/schedule-2026.csv`, then:
 python3 tools/build_schedule.py
 ```
 
-The CSV takes `date` (ISO), `opponent`, `site` (home/away), `conference`
-(yes/no), `time`, and an optional `result`.
+The CSV takes `date` (ISO), `opponent`, `site` (home/away), `time`, and an
+optional `result`.
 
-**Kickoff times are blank right now** — the schedule I was given didn't include
-them. Fill the `time` column and they'll appear on the cards; leave it blank
-and nothing renders. Adding `result` (e.g. `W 42-21`) after a game shows the
+Adding `result` (e.g. `W 42-21`) after a game shows the
 score on that card, which turns the page into a season record as the year goes
 on.
 
@@ -96,7 +95,7 @@ That rewrites `roster.json`, applying the sort order the page depends on:
 higher grade first, then heavier player, then last name so the order never
 wobbles between builds.
 
-**Then bump the cache version in `sw.js`** (`eagles-roster-v3` → `-v4`) and
+**Then bump the cache version in `sw.js`** (`eagles-roster-v8` → `-v9`) and
 push. The service worker is network-first for the page and the roster, so a
 phone with a signal picks up the change on the next open; the version bump is
 what clears the old files for phones that were offline.
@@ -148,8 +147,8 @@ in gold.
 
 | Path | What it is |
 | --- | --- |
-| `index.html` | Lookup page structure and the card templates |
-| `roster.html` | Full roster page |
+| `index.html` | Full roster — the landing page |
+| `lookup.html` | Number lookup page |
 | `styles.css` | All styling for both pages, brand tokens at the top |
 | `app.js` | Lookup, card rendering, service worker registration |
 | `roster.js` | Renders the full roster list |
