@@ -5,6 +5,15 @@ the press box, and it works with no signal once it has been opened.
 
 **Live:** https://edskimin.github.io/AvonFootball2026/
 
+## Two pages
+
+- **`index.html`** — the lookup. Enter a number, get the player.
+- **`roster.html`** — the full roster in jersey number order, two lines per
+  player with positions right-aligned on the name's line.
+
+The pill in the top right of the header switches between them: it reads
+**Roster** on the lookup page and **Lookup** on the roster page.
+
 ## How it behaves
 
 - **The number pad is part of the page**, not the phone's keyboard. iOS puts an
@@ -96,9 +105,11 @@ in gold.
 
 | Path | What it is |
 | --- | --- |
-| `index.html` | Page structure and the card templates |
-| `styles.css` | All styling, brand tokens at the top |
+| `index.html` | Lookup page structure and the card templates |
+| `roster.html` | Full roster page |
+| `styles.css` | All styling for both pages, brand tokens at the top |
 | `app.js` | Lookup, card rendering, service worker registration |
+| `roster.js` | Renders the full roster list |
 | `roster.json` | Generated — do not hand-edit if you can avoid it |
 | `sw.js` | Offline cache. Bump `CACHE` on every content change |
 | `data/roster-2026.csv` | Source of truth for the roster |

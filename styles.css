@@ -37,8 +37,13 @@ body {
   font-family: var(--sans);
   font-size: 16px;
   line-height: 1.6;
-  /* The keypad is fixed, so the page reserves its height to keep the last
-     card and the footer reachable. app.js measures it into --keypad-h. */
+  padding-bottom: 24px;
+}
+
+/* The keypad is fixed, so the lookup page reserves its height to keep the last
+   card and the footer reachable. app.js measures it into --keypad-h. The
+   roster page has no keypad and keeps the plain padding above. */
+body.has-keypad {
   padding-bottom: calc(var(--keypad-h, 250px) + 16px);
 }
 
@@ -65,14 +70,14 @@ body {
 .masthead__inner {
   max-width: var(--measure);
   margin: 0 auto;
-  padding: 14px var(--gutter);
+  padding: 11px var(--gutter);
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .masthead__mark {
-  height: 34px;
+  height: 30px;
   width: auto;
   flex: none;
   /* Lifts the mark off the purple field without recoloring it. */
@@ -83,19 +88,20 @@ body {
 
 .masthead__eyebrow {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 500;
-  letter-spacing: .16em;
+  letter-spacing: .1em;
   text-transform: uppercase;
   color: var(--gold);
-  margin: 0 0 1px;
+  margin: 0 0 2px;
   line-height: 1.2;
+  white-space: nowrap;
 }
 
 .masthead__title {
   font-family: var(--display);
   font-weight: 700;
-  font-size: 19px;
+  font-size: 16px;
   line-height: 1.15;
   margin: 0;
   white-space: nowrap;
@@ -103,14 +109,51 @@ body {
   text-overflow: ellipsis;
 }
 
-.masthead__season {
-  font-family: var(--mono);
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--gold);
-  margin: 0 0 0 auto;
-  padding-left: 8px;
+/* Reads as a control rather than a label: bordered pill plus a stacked-lines
+   glyph, so it is obvious the corner of the header is tappable. */
+.masthead__nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   flex: none;
+  margin-left: auto;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  color: var(--gold);
+  text-decoration: none;
+  border: 1.5px solid rgba(253, 181, 21, .55);
+  border-radius: 999px;
+  padding: 6px 11px;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.masthead__nav:active { background: rgba(253, 181, 21, .16); }
+
+.masthead__nav:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.masthead__nav-icon {
+  width: 13px;
+  height: 9px;
+  flex: none;
+  border-top: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  position: relative;
+}
+
+.masthead__nav-icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  margin-top: -.75px;
+  border-top: 1.5px solid currentColor;
 }
 
 /* ---------- Entry display ---------- */
@@ -128,13 +171,13 @@ body {
 .entry__inner {
   max-width: var(--measure);
   margin: 0 auto;
-  padding: 10px var(--gutter) 6px;
+  padding: 7px var(--gutter);
 }
 
 .entry__display {
   font-family: var(--display);
   font-weight: 700;
-  font-size: 32px;
+  font-size: 26px;
   line-height: 1;
   text-align: center;
   letter-spacing: .06em;
@@ -142,21 +185,13 @@ body {
   background: var(--white);
   border: 2px solid var(--line);
   border-radius: var(--radius);
+  /* Sized so the box lands at roughly the masthead's height. */
   padding: 10px 12px;
   margin: 0;
 }
 
 /* Standing in for a placeholder. 3:1 on white, which clears AA at this size. */
 .entry__display--empty { color: #9A90AE; }
-
-.entry__hint {
-  max-width: var(--measure);
-  margin: 0 auto;
-  padding: 0 var(--gutter) 9px;
-  font-size: 12px;
-  color: var(--slate);
-  text-align: center;
-}
 
 /* ---------- Keypad ---------- */
 
@@ -387,6 +422,54 @@ body {
 
 .card--latest .player__pos li { font-size: 12px; padding: 3px 9px; }
 
+/* ---------- Roster page ---------- */
+
+.stack--roster { padding-top: 18px; }
+
+/* Tighter than the lookup cards: this is a list to scan, not a hero. */
+.card--row { margin: 10px 0; }
+
+.player--row { padding: 10px 14px; }
+
+.player__head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.player--row .player__name {
+  font-size: 17px;
+  margin: 0;
+  min-width: 0;
+}
+
+/* Positions ride the name's line and hug the right edge, which is what keeps
+   each player to two lines instead of three. */
+.player__pos-inline {
+  margin: 0 0 0 auto;
+  flex: none;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--purple);
+  white-space: nowrap;
+}
+
+.player__pos-inline:empty { display: none; }
+
+.player--row .player__meta { margin-top: 2px; }
+
+.roster-status {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--slate);
+  text-align: center;
+  padding: 14px 0 4px;
+  margin: 0;
+}
+
 /* ---------- Missing number ---------- */
 
 .card--missing .card__num {
@@ -462,6 +545,15 @@ body {
 /* Still recedes from the line above it, but clears AA at 12px (5.2:1). */
 .site-footer__note { color: #6E6879; }
 
+.site-footer a {
+  color: var(--purple);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.site-footer a:active { color: var(--purple-light); }
+
 /* ---------- Wider screens ---------- */
 
 @media (min-width: 600px) {
@@ -469,8 +561,9 @@ body {
   .masthead__mark { height: 44px; }
   .masthead__title { font-size: 25px; }
   .masthead__eyebrow { font-size: 11px; }
-  .masthead__season { font-size: 15px; }
-  .entry__display { font-size: 36px; }
+  .masthead__nav { font-size: 14px; padding: 7px 15px; }
+  .entry__display { font-size: 30px; }
+  .player--row .player__name { font-size: 18px; }
   .key { font-size: 27px; min-height: 54px; }
   .card { grid-template-columns: 92px 1fr; }
   .card--latest { grid-template-columns: 116px 1fr; }

@@ -9,7 +9,6 @@
   var results = document.getElementById("results");
   var emptyState = document.getElementById("empty-state");
   var clearBtn = document.getElementById("clear-btn");
-  var footerCount = document.getElementById("footer-count");
   var cardTemplate = document.getElementById("card-template");
   var playerTemplate = document.getElementById("player-template");
 
@@ -25,8 +24,6 @@
     })
     .then(function (data) {
       roster = data;
-      footerCount.textContent =
-        data.team + " · " + data.season + " media roster · " + data.count + " players";
       setKeysEnabled(true);
     })
     .catch(function (err) {
