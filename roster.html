@@ -35,6 +35,22 @@
 
 <div class="sortbar" id="sortbar">
   <div class="sortbar__inner">
+    <div class="sortbar__row sortbar__row--search">
+      <label class="search" for="search-input">
+        <span class="visually-hidden">Search players</span>
+        <input
+          class="search__input"
+          id="search-input"
+          type="text"
+          placeholder="Search name, number, or position"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+          enterkeyhint="search">
+      </label>
+      <button class="search__clear" id="search-clear" type="button" aria-label="Clear search" hidden>&times;</button>
+    </div>
     <div class="sortbar__row">
       <p class="sortbar__label" id="sortbar-label">By:</p>
       <div class="sortbar__options" role="group" aria-labelledby="sortbar-label">

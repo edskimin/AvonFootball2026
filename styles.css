@@ -446,6 +446,46 @@ body.has-keypad {
 }
 
 .sortbar__row--jump { margin-top: 7px; }
+.sortbar__row--search { margin-bottom: 7px; }
+
+.search { flex: 1; min-width: 0; display: block; }
+
+.search__input {
+  width: 100%;
+  font-family: var(--sans);
+  font-size: 16px; /* Under 16px and iOS zooms the page on focus. */
+  color: var(--ink);
+  background: var(--white);
+  border: 1.5px solid var(--line);
+  border-radius: 6px;
+  padding: 8px 12px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.search__input::placeholder { color: #8B8496; }
+
+.search__input:focus {
+  outline: none;
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px rgba(75, 46, 131, .14);
+}
+
+.search__clear {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--slate);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.search__clear:active { color: var(--purple); }
 
 .sortbar__label {
   flex: none;
@@ -606,6 +646,13 @@ body.has-keypad {
   text-align: center;
   padding: 14px 0 4px;
   margin: 0;
+}
+
+.roster-status--empty {
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--ink);
+  padding: 40px 0 4px;
 }
 
 /* ---------- Missing number ---------- */

@@ -20,6 +20,11 @@ the press box, and it works with no signal once it has been opened.
 
   Every sort but Number gets section dividers and a **Jump to…** menu.
 
+  The **search box** filters as you type and works in any sort. It matches
+  names (punctuation-insensitive, so `oreilly` finds O'Reilly and `rjross`
+  finds R.J. Ross), jersey numbers, and position abbreviations — typing `qb`
+  lists the quarterbacks. Escape or the × clears it.
+
   Two-way players are listed under **each** position they play, so the position
   totals add up to more than 118. That is deliberate — you want the whole
   linebacker group when you look up linebackers — and the line under the list

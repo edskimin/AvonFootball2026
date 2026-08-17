@@ -12,9 +12,13 @@
   var playerTemplate = document.getElementById("player-template");
   var sectionTemplate = document.getElementById("section-template");
 
+  var searchInput = document.getElementById("search-input");
+  var searchClear = document.getElementById("search-clear");
+
   var players = [];
   var byNumber = {};
   var sort = "number";
+  var query = "";
 
   // Offense, then defense, then special teams. Order carries the grouping, so
   // the sections don't need their own super-headings.
@@ -83,6 +87,31 @@
     return lastName(a).localeCompare(lastName(b)) || a.num - b.num;
   }
 
+  /* ---------- Search ---------- */
+
+  // Punctuation is dropped on both sides so "oreilly" finds O'Reilly and
+  // "rjross" finds R.J. Ross.
+  function normalize(text) {
+    return text.toLowerCase().replace(/[^a-z0-9]/g, "");
+  }
+
+  function matches(player) {
+    if (!query) return true;
+
+    // All digits: treat it as a jersey number rather than part of a name.
+    if (/^\d+$/.test(query)) return String(player.num).indexOf(query) === 0;
+
+    if (normalize(player.name).indexOf(query) !== -1) return true;
+
+    return player.pos.some(function (pos) {
+      return pos.toLowerCase() === query;
+    });
+  }
+
+  function visible(list) {
+    return list.filter(matches);
+  }
+
   /* ---------- Section building ---------- */
 
   // Every sort returns the same shape, so render() stays simple: a list of
@@ -93,13 +122,14 @@
         id: null,
         groups: Object.keys(byNumber)
           .sort(function (a, b) { return Number(a) - Number(b); })
-          .map(function (num) { return { num: num, players: byNumber[num] }; })
+          .map(function (num) { return { num: num, players: visible(byNumber[num]) }; })
+          .filter(function (group) { return group.players.length; })
       }];
     }
 
     if (sort === "alpha") {
       var letters = {};
-      players.slice().sort(byName).forEach(function (p) {
+      visible(players).sort(byName).forEach(function (p) {
         var letter = lastName(p).charAt(0).toUpperCase();
         (letters[letter] = letters[letter] || []).push(p);
       });
@@ -115,7 +145,7 @@
 
     if (sort === "grade") {
       return GRADES.map(function (g) {
-        var group = players.filter(function (p) { return p.grade === g[0]; }).sort(byJersey);
+        var group = visible(players).filter(function (p) { return p.grade === g[0]; }).sort(byJersey);
         return {
           id: "sec-gr" + g[0],
           label: g[1],
@@ -129,7 +159,7 @@
     // Position. A player who plays both ways is listed under each position —
     // you want the whole linebacker group when you look up linebackers.
     return POSITIONS.map(function (pos) {
-      var group = players.filter(function (p) {
+      var group = visible(players).filter(function (p) {
         return p.pos.indexOf(pos[0]) !== -1;
       }).sort(byJersey);
       return {
@@ -162,17 +192,30 @@
       });
     });
 
+    var shown = visible(players).length;
     var tail = document.createElement("p");
     tail.className = "roster-status";
-    tail.textContent = sort === "position"
+
+    if (query && !shown) {
+      tail.className = "roster-status roster-status--empty";
+      tail.textContent = "No player matches “" + searchInput.value.trim() + "”.";
+    } else if (query) {
+      tail.textContent = shown + (shown === 1 ? " match" : " matches");
+    } else if (sort === "position") {
       // The position total exceeds the roster because two-way players appear
       // in more than one group; saying so avoids looking like a bug.
-      ? players.length + " players · listed under each position they play"
-      : players.length + " players · " + Object.keys(byNumber).length + " numbers";
-    frag.appendChild(tail);
+      tail.textContent = players.length + " players · listed under each position they play";
+    } else {
+      tail.textContent =
+        players.length + " players · " + Object.keys(byNumber).length + " numbers";
+    }
 
+    frag.appendChild(tail);
     list.appendChild(frag);
-    buildJump(sections);
+
+    // Jumping between sections is meaningless once a search has narrowed the
+    // list to a handful of rows.
+    buildJump(query ? [] : sections);
   }
 
   function buildSectionHead(section) {
@@ -229,6 +272,18 @@
       });
     }
 
+    searchInput.addEventListener("input", function () {
+      query = normalize(searchInput.value);
+      searchClear.hidden = !searchInput.value.length;
+      render();
+    });
+
+    searchInput.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") clearSearch();
+    });
+
+    searchClear.addEventListener("click", clearSearch);
+
     jumpSelect.addEventListener("change", function () {
       var target = document.getElementById(jumpSelect.value);
       if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -239,6 +294,14 @@
     measureSortbar();
     window.addEventListener("resize", measureSortbar);
     window.addEventListener("orientationchange", measureSortbar);
+  }
+
+  function clearSearch() {
+    searchInput.value = "";
+    query = "";
+    searchClear.hidden = true;
+    render();
+    searchInput.focus();
   }
 
   function syncButtons() {
