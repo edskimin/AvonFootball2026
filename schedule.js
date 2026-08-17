@@ -64,13 +64,13 @@
 
     el.querySelector(".game__site").textContent = game.away ? "Away" : "Home";
 
-    // Result once it exists, otherwise the date and any kickoff time.
+    // The gold card already says which game is next, so the meta line stays
+    // short enough to hold one line on a phone.
     var bits = [game.label];
     if (game.time) bits.push(game.time);
     if (game.result) bits.unshift(game.result);
-    if (isNext) bits.unshift("Next game");
 
-    el.querySelector(".game__meta").textContent = bits.join("  ·  ");
+    el.querySelector(".game__meta").textContent = bits.join(" · ");
     return el;
   }
 
