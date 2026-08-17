@@ -1,0 +1,1475 @@
+{
+ "team": "Avon Eagles Football",
+ "season": "2026",
+ "count": 118,
+ "numbers": {
+  "0": [
+   {
+    "num": 0,
+    "name": "Jairel Fenton",
+    "grade": 12,
+    "height": "5'11\"",
+    "weight": 180,
+    "pos": [
+     "RB",
+     "DB"
+    ]
+   }
+  ],
+  "1": [
+   {
+    "num": 1,
+    "name": "Alec Ferreira",
+    "grade": 12,
+    "height": "6'2\"",
+    "weight": 193,
+    "pos": [
+     "TE",
+     "LB"
+    ]
+   }
+  ],
+  "2": [
+   {
+    "num": 2,
+    "name": "Jonathan Scott",
+    "grade": 11,
+    "height": "5'9\"",
+    "weight": 176,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   },
+   {
+    "num": 2,
+    "name": "Colton Fishleigh",
+    "grade": 10,
+    "height": "5'8\"",
+    "weight": 174,
+    "pos": [
+     "WR",
+     "LB"
+    ]
+   }
+  ],
+  "3": [
+   {
+    "num": 3,
+    "name": "Trevor Sykora",
+    "grade": 11,
+    "height": "6'2\"",
+    "weight": 170,
+    "pos": [
+     "QB",
+     "P"
+    ]
+   }
+  ],
+  "4": [
+   {
+    "num": 4,
+    "name": "Grayden Beerbohm",
+    "grade": 11,
+    "height": "6'4\"",
+    "weight": 207,
+    "pos": [
+     "TE",
+     "LB"
+    ]
+   },
+   {
+    "num": 4,
+    "name": "Ginter Smitek",
+    "grade": 10,
+    "height": "5'11\"",
+    "weight": 151,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "5": [
+   {
+    "num": 5,
+    "name": "Gavin Koehler",
+    "grade": 11,
+    "height": "6'0\"",
+    "weight": 178,
+    "pos": [
+     "WR"
+    ]
+   },
+   {
+    "num": 5,
+    "name": "Cooper Buescher",
+    "grade": 10,
+    "height": "5'11\"",
+    "weight": 176,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "6": [
+   {
+    "num": 6,
+    "name": "Fin Jerdonek",
+    "grade": 12,
+    "height": "5'10\"",
+    "weight": 171,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "7": [
+   {
+    "num": 7,
+    "name": "Michael Colburn",
+    "grade": 12,
+    "height": "5'8\"",
+    "weight": 182,
+    "pos": [
+     "RB",
+     "LB"
+    ]
+   },
+   {
+    "num": 7,
+    "name": "Collin Fox",
+    "grade": 10,
+    "height": "5'9\"",
+    "weight": 165,
+    "pos": [
+     "QB"
+    ]
+   }
+  ],
+  "8": [
+   {
+    "num": 8,
+    "name": "Jackson Palmer",
+    "grade": 12,
+    "height": "5'11\"",
+    "weight": 179,
+    "pos": [
+     "WR"
+    ]
+   },
+   {
+    "num": 8,
+    "name": "Ryan Eaton",
+    "grade": 11,
+    "height": "5'11\"",
+    "weight": 186,
+    "pos": [
+     "LB"
+    ]
+   }
+  ],
+  "9": [
+   {
+    "num": 9,
+    "name": "Nathan Peters",
+    "grade": 12,
+    "height": "5'10\"",
+    "weight": 195,
+    "pos": [
+     "TE",
+     "LB"
+    ]
+   },
+   {
+    "num": 9,
+    "name": "Bobby Wronko",
+    "grade": 10,
+    "height": "5'10\"",
+    "weight": 181,
+    "pos": [
+     "TE",
+     "LB"
+    ]
+   }
+  ],
+  "10": [
+   {
+    "num": 10,
+    "name": "Casey Birth",
+    "grade": 11,
+    "height": "6'0\"",
+    "weight": 200,
+    "pos": [
+     "QB",
+     "LS"
+    ]
+   }
+  ],
+  "11": [
+   {
+    "num": 11,
+    "name": "Caeden Bennett",
+    "grade": 12,
+    "height": "5'11\"",
+    "weight": 177,
+    "pos": [
+     "WR"
+    ]
+   },
+   {
+    "num": 11,
+    "name": "Chase Hazen",
+    "grade": 10,
+    "height": "5'10\"",
+    "weight": 145,
+    "pos": [
+     "QB"
+    ]
+   }
+  ],
+  "12": [
+   {
+    "num": 12,
+    "name": "Noah Behymer",
+    "grade": 11,
+    "height": "6'1\"",
+    "weight": 179,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "13": [
+   {
+    "num": 13,
+    "name": "Grady Dominick",
+    "grade": 10,
+    "height": "6'1\"",
+    "weight": 174,
+    "pos": [
+     "QB"
+    ]
+   }
+  ],
+  "14": [
+   {
+    "num": 14,
+    "name": "Lincoln Clapham",
+    "grade": 10,
+    "height": "5'7\"",
+    "weight": 133,
+    "pos": [
+     "RB",
+     "DB"
+    ]
+   }
+  ],
+  "15": [
+   {
+    "num": 15,
+    "name": "Graham Rowlison",
+    "grade": 12,
+    "height": "5'9\"",
+    "weight": 160,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "16": [
+   {
+    "num": 16,
+    "name": "Jack White",
+    "grade": 10,
+    "height": "6'0\"",
+    "weight": 171,
+    "pos": [
+     "WR",
+     "LB"
+    ]
+   }
+  ],
+  "17": [
+   {
+    "num": 17,
+    "name": "Jack Goldian",
+    "grade": 12,
+    "height": "6'2\"",
+    "weight": 208,
+    "pos": [
+     "TE",
+     "LB"
+    ]
+   }
+  ],
+  "18": [
+   {
+    "num": 18,
+    "name": "Merrick Dunn",
+    "grade": 12,
+    "height": "5'10\"",
+    "weight": 182,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "19": [
+   {
+    "num": 19,
+    "name": "Carter Schram",
+    "grade": 11,
+    "height": "5'9\"",
+    "weight": 179,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "20": [
+   {
+    "num": 20,
+    "name": "Cody Canning",
+    "grade": 12,
+    "height": "5'11\"",
+    "weight": 181,
+    "pos": [
+     "DB"
+    ]
+   },
+   {
+    "num": 20,
+    "name": "Joey Budinger",
+    "grade": 10,
+    "height": "6'0\"",
+    "weight": 150,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "21": [
+   {
+    "num": 21,
+    "name": "Owen Pocos",
+    "grade": 11,
+    "height": "5'10\"",
+    "weight": 185,
+    "pos": [
+     "DB"
+    ]
+   },
+   {
+    "num": 21,
+    "name": "Logan Workman",
+    "grade": 10,
+    "height": "5'9\"",
+    "weight": 140,
+    "pos": [
+     "WR",
+     "LB"
+    ]
+   }
+  ],
+  "22": [
+   {
+    "num": 22,
+    "name": "Nick Lombardy",
+    "grade": 11,
+    "height": "6'0\"",
+    "weight": 173,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "23": [
+   {
+    "num": 23,
+    "name": "Ryan Pesta",
+    "grade": 11,
+    "height": "5'11\"",
+    "weight": 178,
+    "pos": [
+     "RB",
+     "DB"
+    ]
+   }
+  ],
+  "24": [
+   {
+    "num": 24,
+    "name": "Bryce Chura",
+    "grade": 12,
+    "height": "6'1\"",
+    "weight": 178,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   },
+   {
+    "num": 24,
+    "name": "Joey Palmer",
+    "grade": 10,
+    "height": "5'9\"",
+    "weight": 160,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "25": [
+   {
+    "num": 25,
+    "name": "Adrian Ramirez",
+    "grade": 11,
+    "height": "5'11\"",
+    "weight": 205,
+    "pos": [
+     "RB",
+     "LB"
+    ]
+   }
+  ],
+  "26": [
+   {
+    "num": 26,
+    "name": "Jordan Carter",
+    "grade": 11,
+    "height": "5'7\"",
+    "weight": 130,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   },
+   {
+    "num": 26,
+    "name": "R.J. Ross",
+    "grade": 10,
+    "height": "5'8\"",
+    "weight": 162,
+    "pos": [
+     "RB",
+     "LB"
+    ]
+   }
+  ],
+  "27": [
+   {
+    "num": 27,
+    "name": "Dean Andress",
+    "grade": 12,
+    "height": "6'0\"",
+    "weight": 191,
+    "pos": [
+     "RB",
+     "LB"
+    ]
+   },
+   {
+    "num": 27,
+    "name": "Drew Wieland",
+    "grade": 11,
+    "height": "5'11\"",
+    "weight": 170,
+    "pos": [
+     "WR",
+     "LB"
+    ]
+   }
+  ],
+  "28": [
+   {
+    "num": 28,
+    "name": "Adrian LaBianca",
+    "grade": 11,
+    "height": "5'11\"",
+    "weight": 193,
+    "pos": [
+     "TE",
+     "LB"
+    ]
+   },
+   {
+    "num": 28,
+    "name": "Coen Dobnikar",
+    "grade": 10,
+    "height": "5'7\"",
+    "weight": 127,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "29": [
+   {
+    "num": 29,
+    "name": "Jimmy Toth",
+    "grade": 10,
+    "height": "5'7\"",
+    "weight": 130,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "30": [
+   {
+    "num": 30,
+    "name": "Isaiah Bryant",
+    "grade": 11,
+    "height": "5'9\"",
+    "weight": 160,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   },
+   {
+    "num": 30,
+    "name": "Max Redd",
+    "grade": 10,
+    "height": "5'8\"",
+    "weight": 160,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "31": [
+   {
+    "num": 31,
+    "name": "Gabe Kimola",
+    "grade": 12,
+    "height": "5'8\"",
+    "weight": 159,
+    "pos": [
+     "RB",
+     "LB"
+    ]
+   }
+  ],
+  "32": [
+   {
+    "num": 32,
+    "name": "Luke Pavey",
+    "grade": 11,
+    "height": "6'1\"",
+    "weight": 183,
+    "pos": [
+     "RB",
+     "LB"
+    ]
+   }
+  ],
+  "33": [
+   {
+    "num": 33,
+    "name": "Matviy Palacz",
+    "grade": 11,
+    "height": "5'10\"",
+    "weight": 170,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "34": [
+   {
+    "num": 34,
+    "name": "Cameron Bly",
+    "grade": 10,
+    "height": "5'11\"",
+    "weight": 223,
+    "pos": [
+     "RB",
+     "LB"
+    ]
+   }
+  ],
+  "35": [
+   {
+    "num": 35,
+    "name": "Griffin Schindley",
+    "grade": 11,
+    "height": "5'8\"",
+    "weight": 177,
+    "pos": [
+     "RB",
+     "LB"
+    ]
+   },
+   {
+    "num": 35,
+    "name": "Xavier DeJesus",
+    "grade": 11,
+    "height": "5'11\"",
+    "weight": 165,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "36": [
+   {
+    "num": 36,
+    "name": "Colton Bird",
+    "grade": 10,
+    "height": "5'7\"",
+    "weight": 127,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "37": [
+   {
+    "num": 37,
+    "name": "Ryan Collins",
+    "grade": 11,
+    "height": "6'0\"",
+    "weight": 161,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "38": [
+   {
+    "num": 38,
+    "name": "Greyson Hutter",
+    "grade": 11,
+    "height": "5'8\"",
+    "weight": 161,
+    "pos": [
+     "WR",
+     "LB"
+    ]
+   }
+  ],
+  "39": [
+   {
+    "num": 39,
+    "name": "Mic Barile",
+    "grade": 12,
+    "height": "5'8\"",
+    "weight": 149,
+    "pos": [
+     "K",
+     "P"
+    ]
+   }
+  ],
+  "40": [
+   {
+    "num": 40,
+    "name": "Sean White",
+    "grade": 12,
+    "height": "6'0\"",
+    "weight": 198,
+    "pos": [
+     "LB"
+    ]
+   },
+   {
+    "num": 40,
+    "name": "Grady Dlugosz",
+    "grade": 11,
+    "height": "5'10\"",
+    "weight": 160,
+    "pos": [
+     "TE",
+     "DB"
+    ]
+   }
+  ],
+  "41": [
+   {
+    "num": 41,
+    "name": "Brayden Kayes",
+    "grade": 11,
+    "height": "6'0\"",
+    "weight": 189,
+    "pos": [
+     "TE",
+     "LB"
+    ]
+   }
+  ],
+  "42": [
+   {
+    "num": 42,
+    "name": "Leo Gumucio",
+    "grade": 12,
+    "height": "5'9\"",
+    "weight": 153,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   },
+   {
+    "num": 42,
+    "name": "Zach Leska",
+    "grade": 10,
+    "height": "5'10\"",
+    "weight": 160,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "43": [
+   {
+    "num": 43,
+    "name": "Kyle Bracy",
+    "grade": 10,
+    "height": "5'10\"",
+    "weight": 183,
+    "pos": [
+     "RB",
+     "LB"
+    ]
+   }
+  ],
+  "44": [
+   {
+    "num": 44,
+    "name": "Jacob Rockich",
+    "grade": 10,
+    "height": "5'10\"",
+    "weight": 177,
+    "pos": [
+     "TE",
+     "LB"
+    ]
+   },
+   {
+    "num": 44,
+    "name": "Liam Kessler",
+    "grade": 10,
+    "height": "5'8\"",
+    "weight": 145,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "45": [
+   {
+    "num": 45,
+    "name": "Neil Harbison",
+    "grade": 11,
+    "height": "5'10\"",
+    "weight": 185,
+    "pos": [
+     "TE",
+     "LB"
+    ]
+   },
+   {
+    "num": 45,
+    "name": "Vincent Gallo",
+    "grade": 10,
+    "height": "5'10\"",
+    "weight": 190,
+    "pos": [
+     "TE",
+     "LB"
+    ]
+   }
+  ],
+  "46": [
+   {
+    "num": 46,
+    "name": "Sebastion Vidalon",
+    "grade": 10,
+    "height": "6'1\"",
+    "weight": 195,
+    "pos": [
+     "RB",
+     "LB"
+    ]
+   }
+  ],
+  "47": [
+   {
+    "num": 47,
+    "name": "Madden Sclimenti",
+    "grade": 11,
+    "height": "5'9\"",
+    "weight": 169,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "48": [
+   {
+    "num": 48,
+    "name": "John Hammond",
+    "grade": 10,
+    "height": "5'11\"",
+    "weight": 210,
+    "pos": [
+     "TE",
+     "LB"
+    ]
+   }
+  ],
+  "49": [
+   {
+    "num": 49,
+    "name": "Evan Nickles",
+    "grade": 10,
+    "height": "5'11\"",
+    "weight": 171,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "50": [
+   {
+    "num": 50,
+    "name": "Nolan Robke",
+    "grade": 12,
+    "height": "6'2\"",
+    "weight": 261,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   },
+   {
+    "num": 50,
+    "name": "Tyler Clark",
+    "grade": 10,
+    "height": "6'0\"",
+    "weight": 160,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "51": [
+   {
+    "num": 51,
+    "name": "Michael LaCivita",
+    "grade": 12,
+    "height": "5'10\"",
+    "weight": 183,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "52": [
+   {
+    "num": 52,
+    "name": "Jack Fitch",
+    "grade": 12,
+    "height": "5'10\"",
+    "weight": 238,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   },
+   {
+    "num": 52,
+    "name": "Adam Almomani",
+    "grade": 10,
+    "height": "6'0\"",
+    "weight": 220,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "53": [
+   {
+    "num": 53,
+    "name": "Evan Branham",
+    "grade": 11,
+    "height": "6'0\"",
+    "weight": 202,
+    "pos": [
+     "OL",
+     "LB"
+    ]
+   }
+  ],
+  "54": [
+   {
+    "num": 54,
+    "name": "Jack Rauscher",
+    "grade": 11,
+    "height": "5'9\"",
+    "weight": 205,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "55": [
+   {
+    "num": 55,
+    "name": "Hugh Owens",
+    "grade": 11,
+    "height": "6'0\"",
+    "weight": 278,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   },
+   {
+    "num": 55,
+    "name": "Brock Smith",
+    "grade": 10,
+    "height": "5'10\"",
+    "weight": 220,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "56": [
+   {
+    "num": 56,
+    "name": "Dominic Grasso",
+    "grade": 12,
+    "height": "6'1\"",
+    "weight": 250,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   },
+   {
+    "num": 56,
+    "name": "Alex Bilczo",
+    "grade": 10,
+    "height": "6'2\"",
+    "weight": 181,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "57": [
+   {
+    "num": 57,
+    "name": "Ben Urban",
+    "grade": 11,
+    "height": "5'11\"",
+    "weight": 202,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "58": [
+   {
+    "num": 58,
+    "name": "Anthony Lammers",
+    "grade": 10,
+    "height": "6'2\"",
+    "weight": 246,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "59": [
+   {
+    "num": 59,
+    "name": "Anthony Haas",
+    "grade": 10,
+    "height": "5'11\"",
+    "weight": 291,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "60": [
+   {
+    "num": 60,
+    "name": "Jack Benson",
+    "grade": 10,
+    "height": "6'0\"",
+    "weight": 231,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "61": [
+   {
+    "num": 61,
+    "name": "Jonathon Weir",
+    "grade": 12,
+    "height": "5'11\"",
+    "weight": 270,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "62": [
+   {
+    "num": 62,
+    "name": "Thomas Johnson",
+    "grade": 11,
+    "height": "5'11\"",
+    "weight": 201,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   },
+   {
+    "num": 62,
+    "name": "Ahmad Hamdan",
+    "grade": 10,
+    "height": "5'10\"",
+    "weight": 250,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "63": [
+   {
+    "num": 63,
+    "name": "Bradley Witherspoon",
+    "grade": 11,
+    "height": "5'11\"",
+    "weight": 196,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "64": [
+   {
+    "num": 64,
+    "name": "Ricky Cox",
+    "grade": 10,
+    "height": "5'9\"",
+    "weight": 267,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "65": [
+   {
+    "num": 65,
+    "name": "Dominic Gorey",
+    "grade": 11,
+    "height": "5'10\"",
+    "weight": 226,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "66": [
+   {
+    "num": 66,
+    "name": "Owen Wagner",
+    "grade": 10,
+    "height": "5'9\"",
+    "weight": 182,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "67": [
+   {
+    "num": 67,
+    "name": "Graeden Szucs",
+    "grade": 12,
+    "height": "6'0\"",
+    "weight": 215,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "68": [
+   {
+    "num": 68,
+    "name": "Alex Valdez",
+    "grade": 10,
+    "height": "5'9\"",
+    "weight": 212,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   },
+   {
+    "num": 68,
+    "name": "Kaden Studevant",
+    "grade": 10,
+    "height": "6'0\"",
+    "weight": 190,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "70": [
+   {
+    "num": 70,
+    "name": "Zion Howell",
+    "grade": 11,
+    "height": "5'11\"",
+    "weight": 247,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   },
+   {
+    "num": 70,
+    "name": "AJ Holcomb",
+    "grade": 10,
+    "height": "5'11\"",
+    "weight": 206,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "72": [
+   {
+    "num": 72,
+    "name": "Caden Krugman",
+    "grade": 12,
+    "height": "6'1\"",
+    "weight": 261,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "73": [
+   {
+    "num": 73,
+    "name": "Josh Kelly",
+    "grade": 11,
+    "height": "6'1\"",
+    "weight": 245,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "74": [
+   {
+    "num": 74,
+    "name": "Landon Dietz",
+    "grade": 10,
+    "height": "5'8\"",
+    "weight": 249,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "75": [
+   {
+    "num": 75,
+    "name": "Vincenzo Stefko",
+    "grade": 11,
+    "height": "6'0\"",
+    "weight": 287,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "76": [
+   {
+    "num": 76,
+    "name": "Cameron Dietz",
+    "grade": 12,
+    "height": "5'10\"",
+    "weight": 170,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "77": [
+   {
+    "num": 77,
+    "name": "Derek Weitzel",
+    "grade": 11,
+    "height": "6'3\"",
+    "weight": 295,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "78": [
+   {
+    "num": 78,
+    "name": "Ryan Wysocki",
+    "grade": 12,
+    "height": "6'2\"",
+    "weight": 250,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "79": [
+   {
+    "num": 79,
+    "name": "Alex Capiccioni",
+    "grade": 11,
+    "height": "6'1\"",
+    "weight": 255,
+    "pos": [
+     "OL",
+     "DL"
+    ]
+   }
+  ],
+  "80": [
+   {
+    "num": 80,
+    "name": "Reese O'Reilly",
+    "grade": 11,
+    "height": "5'9\"",
+    "weight": 152,
+    "pos": [
+     "LS"
+    ]
+   },
+   {
+    "num": 80,
+    "name": "Brody Hess",
+    "grade": 10,
+    "height": "5'7\"",
+    "weight": 121,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "81": [
+   {
+    "num": 81,
+    "name": "Brody Friedel",
+    "grade": 11,
+    "height": "6'2\"",
+    "weight": 180,
+    "pos": [
+     "TE",
+     "LB"
+    ]
+   }
+  ],
+  "82": [
+   {
+    "num": 82,
+    "name": "Brock Bashforth",
+    "grade": 10,
+    "height": "6'1\"",
+    "weight": 162,
+    "pos": [
+     "TE",
+     "LB"
+    ]
+   }
+  ],
+  "83": [
+   {
+    "num": 83,
+    "name": "Mathew Kelly",
+    "grade": 11,
+    "height": "6'1\"",
+    "weight": 215,
+    "pos": [
+     "TE",
+     "LB"
+    ]
+   }
+  ],
+  "84": [
+   {
+    "num": 84,
+    "name": "Addie Peoples",
+    "grade": 10,
+    "height": "6'0\"",
+    "weight": 160,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "85": [
+   {
+    "num": 85,
+    "name": "Asher Stark",
+    "grade": 10,
+    "height": "5'10\"",
+    "weight": 172,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "86": [
+   {
+    "num": 86,
+    "name": "Ian Kilgore",
+    "grade": 10,
+    "height": "5'7\"",
+    "weight": 154,
+    "pos": [
+     "K"
+    ]
+   }
+  ],
+  "87": [
+   {
+    "num": 87,
+    "name": "Tyler Croft",
+    "grade": 10,
+    "height": "5'9\"",
+    "weight": 137,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "88": [
+   {
+    "num": 88,
+    "name": "EJ Skimin",
+    "grade": 11,
+    "height": "5'9\"",
+    "weight": 185,
+    "pos": [
+     "TE",
+     "LB"
+    ]
+   }
+  ],
+  "89": [
+   {
+    "num": 89,
+    "name": "Colton Williams",
+    "grade": 10,
+    "height": "5'11\"",
+    "weight": 167,
+    "pos": [
+     "WR",
+     "DB"
+    ]
+   }
+  ],
+  "90": [
+   {
+    "num": 90,
+    "name": "Jude Theibert",
+    "grade": 11,
+    "height": "6'0\"",
+    "weight": 166,
+    "pos": [
+     "K",
+     "P"
+    ]
+   }
+  ],
+  "92": [
+   {
+    "num": 92,
+    "name": "Landon Vega",
+    "grade": 10,
+    "height": "5'6\"",
+    "weight": 134,
+    "pos": [
+     "K",
+     "P"
+    ]
+   }
+  ],
+  "95": [
+   {
+    "num": 95,
+    "name": "Noah Tatman",
+    "grade": 10,
+    "height": "5'10\"",
+    "weight": 181,
+    "pos": [
+     "TE",
+     "DL"
+    ]
+   }
+  ]
+ }
+}

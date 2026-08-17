@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Avon Eagles Football 2026 — Roster Lookup</title>
+<meta name="description" content="Enter a jersey number to look up an Avon Eagles football player.">
+<meta name="theme-color" content="#4B2E83">
+
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/icon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="Eagles Roster">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<link rel="preload" href="assets/fonts/bitter-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/opensans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead__inner">
+    <img class="masthead__mark" src="assets/eagle.png" alt="" width="480" height="205">
+    <div class="masthead__text">
+      <p class="masthead__eyebrow">Roster Lookup</p>
+      <h1 class="masthead__title">Avon Eagles Football</h1>
+    </div>
+    <p class="masthead__season">2026</p>
+  </div>
+</header>
+
+<div class="searchbar">
+  <form class="searchbar__inner" id="lookup-form" autocomplete="off" novalidate>
+    <label class="visually-hidden" for="number-input">Jersey number</label>
+    <input
+      class="searchbar__input"
+      id="number-input"
+      name="number"
+      type="text"
+      inputmode="numeric"
+      pattern="[0-9]*"
+      maxlength="2"
+      placeholder="00"
+      aria-describedby="searchbar-hint"
+      enterkeyhint="go"
+      autocomplete="off"
+      autocorrect="off"
+      spellcheck="false"
+      disabled>
+    <button class="searchbar__go" id="go-btn" type="submit" disabled>GO</button>
+  </form>
+  <p class="searchbar__hint" id="searchbar-hint">Two digits go automatically. For a single digit, tap GO.</p>
+</div>
+
+<main class="stack" id="results" aria-live="polite" aria-atomic="false">
+  <section class="empty" id="empty-state">
+    <p class="empty__lede">Enter a jersey number.</p>
+    <p class="empty__note">27 numbers are worn by two players. When that happens, both appear on the card with the older player on top.</p>
+  </section>
+</main>
+
+<div class="stack stack--actions">
+  <button class="clear-btn" id="clear-btn" type="button" hidden>Clear lookups</button>
+</div>
+
+<footer class="site-footer">
+  <p id="footer-count">Avon Eagles Football · 2026 media roster</p>
+  <p class="site-footer__note">Unofficial. Built for press box and sideline use.</p>
+</footer>
+
+<template id="card-template">
+  <article class="card">
+    <div class="card__num"><span class="card__num-value"></span></div>
+    <div class="card__body"></div>
+  </article>
+</template>
+
+<template id="player-template">
+  <div class="player">
+    <h2 class="player__name"></h2>
+    <p class="player__meta"></p>
+    <ul class="player__pos"></ul>
+  </div>
+</template>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,426 @@
+/* Avon Eagles Football — roster lookup
+   Colors and type follow the Avon Local Schools draft brand guide. */
+
+:root {
+  --purple: #4B2E83;
+  --purple-deep: #2E1A4D;
+  --purple-light: #7B5EA7;
+  --gold: #FDB515;
+  --gold-deep: #C8890E;
+  --ink: #1E1B24;
+  --slate: #5A5563;
+  --line: #E3DFEA;
+  --paper: #FBFAF7;
+  --white: #FFFFFF;
+
+  --display: "Bitter", Georgia, "Times New Roman", serif;
+  --sans: "Open Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --gutter: 18px;
+  --measure: 720px;
+  --radius: 8px;
+  --shadow: 0 1px 2px rgba(30, 27, 36, .06), 0 6px 20px rgba(46, 26, 77, .07);
+}
+
+* { box-sizing: border-box; }
+
+/* A display value on a component would otherwise beat the hidden attribute. */
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  /* Room for the iPhone home indicator. */
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Masthead ---------- */
+
+.masthead {
+  background: var(--purple);
+  /* The gold rule under a purple header is the district's signature device.
+     It appears once, here, and nowhere else on the page. */
+  border-bottom: 6px solid var(--gold);
+  color: var(--white);
+}
+
+.masthead__inner {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 14px var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.masthead__mark {
+  height: 34px;
+  width: auto;
+  flex: none;
+  /* Lifts the mark off the purple field without recoloring it. */
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .35));
+}
+
+.masthead__text { min-width: 0; }
+
+.masthead__eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 1px;
+  line-height: 1.2;
+}
+
+.masthead__title {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 1.15;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.masthead__season {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gold);
+  margin: 0 0 0 auto;
+  padding-left: 8px;
+  flex: none;
+}
+
+/* ---------- Search bar ---------- */
+
+.searchbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  /* Keeps cards from showing through as they scroll under it. */
+  box-shadow: 0 6px 14px -10px rgba(46, 26, 77, .5);
+}
+
+.searchbar__inner {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 12px var(--gutter) 8px;
+  display: flex;
+  gap: 10px;
+}
+
+.searchbar__input {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 1;
+  text-align: center;
+  letter-spacing: .04em;
+  color: var(--purple-deep);
+  background: var(--white);
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  /* iOS zooms the page on focus for anything under 16px. This is well over. */
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.searchbar__input::placeholder {
+  /* 3:1 on white, which clears AA at this size (34px bold counts as large
+     text). The real instruction is the hint below, not the placeholder. */
+  color: #9A90AE;
+}
+
+.searchbar__input:focus {
+  outline: none;
+  border-color: var(--purple);
+  box-shadow: 0 0 0 4px rgba(75, 46, 131, .14);
+}
+
+.searchbar__go {
+  flex: none;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: .04em;
+  /* Deep purple on gold, at 18px bold — the smallest size the guide allows. */
+  color: var(--purple-deep);
+  background: var(--gold);
+  border: 2px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 0 26px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.searchbar__go:active { background: var(--gold-deep); border-color: var(--gold-deep); }
+
+.searchbar__go:focus-visible {
+  outline: 3px solid var(--purple);
+  outline-offset: 2px;
+}
+
+.searchbar__hint {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 var(--gutter) 10px;
+  font-size: 12px;
+  color: var(--slate);
+  text-align: center;
+}
+
+/* ---------- Layout ---------- */
+
+.stack {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.stack--actions { padding-top: 4px; }
+
+/* ---------- Empty state ---------- */
+
+.empty {
+  padding: 44px 4px 8px;
+  text-align: center;
+}
+
+.empty__lede {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1.2;
+  color: var(--purple-deep);
+  margin: 0 0 10px;
+}
+
+.empty__note {
+  font-size: 14px;
+  color: var(--slate);
+  margin: 0 auto;
+  max-width: 40ch;
+}
+
+/* ---------- Cards ---------- */
+
+.card {
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  margin: 18px 0;
+}
+
+.card__num {
+  background: var(--purple);
+  color: var(--gold);
+  font-family: var(--display);
+  font-weight: 700;
+  line-height: 1;
+  font-size: 30px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 16px 6px;
+}
+
+.card__body { padding: 4px 0; min-width: 0; }
+
+.player {
+  padding: 12px 16px;
+}
+
+/* Second player on a shared number sits under a hairline, same visual weight. */
+.player + .player {
+  border-top: 1px solid var(--line);
+}
+
+.player__name {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.15;
+  margin: 0 0 4px;
+  color: var(--ink);
+  overflow-wrap: break-word;
+}
+
+.player__meta {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: .02em;
+  color: var(--slate);
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+}
+
+.player__meta span::after {
+  content: "·";
+  padding-left: 8px;
+  color: var(--line);
+}
+
+.player__meta span:last-child::after { content: none; }
+
+.player__pos {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.player__pos li {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--purple-deep);
+  background: #F1EEF6;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 2px 8px;
+}
+
+.player__pos:empty { display: none; }
+
+/* ---------- The newest card, played big ---------- */
+
+.card--latest {
+  grid-template-columns: 96px 1fr;
+  border-color: #D5CBE6;
+  box-shadow: 0 2px 4px rgba(30, 27, 36, .06), 0 14px 34px rgba(46, 26, 77, .13);
+  margin-top: 20px;
+}
+
+.card--latest .card__num {
+  font-size: 46px;
+  padding: 20px 6px;
+}
+
+.card--latest .player { padding: 18px 20px; }
+
+.card--latest .player__name {
+  font-size: clamp(30px, 8.4vw, 44px);
+  letter-spacing: -.015em;
+  margin-bottom: 8px;
+}
+
+.card--latest .player__meta { font-size: 13px; }
+
+/* Two players share the card, so neither name can run at full hero size. */
+.card--latest .card__body--pair .player__name {
+  font-size: clamp(24px, 6.4vw, 32px);
+}
+
+.card--latest .player__pos li { font-size: 12px; padding: 3px 9px; }
+
+/* ---------- Missing number ---------- */
+
+.card--missing .card__num {
+  background: var(--slate);
+  color: var(--white);
+}
+
+.card--missing .player__name {
+  color: var(--slate);
+  font-family: var(--sans);
+  font-weight: 600;
+}
+
+/* ---------- Entrance ---------- */
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.card--entering { animation: card-in .22s ease-out both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .card--entering { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ---------- Clear ---------- */
+
+.clear-btn {
+  display: block;
+  width: 100%;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--purple);
+  background: transparent;
+  border: 2px solid var(--purple);
+  border-radius: 4px;
+  padding: 10px 18px;
+  margin: 6px 0 0;
+  cursor: pointer;
+}
+
+.clear-btn:active { background: #F1EEF6; }
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  max-width: var(--measure);
+  margin: 34px auto 0;
+  padding: 16px var(--gutter) 34px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--slate);
+}
+
+.site-footer p { margin: 0 0 3px; }
+/* Still recedes from the line above it, but clears AA at 12px (5.2:1). */
+.site-footer__note { color: #6E6879; }
+
+/* ---------- Wider screens ---------- */
+
+@media (min-width: 600px) {
+  .masthead__inner { padding: 18px var(--gutter); }
+  .masthead__mark { height: 44px; }
+  .masthead__title { font-size: 25px; }
+  .masthead__eyebrow { font-size: 11px; }
+  .masthead__season { font-size: 15px; }
+  .searchbar__input { font-size: 38px; }
+  .card { grid-template-columns: 92px 1fr; }
+  .card--latest { grid-template-columns: 116px 1fr; }
+  .card--latest .card__num { font-size: 58px; }
+}
