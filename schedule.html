@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Avon Eagles Football 2026 — Schedule</title>
+<meta name="description" content="The 2026 Avon Eagles varsity football schedule.">
+<meta name="theme-color" content="#4B2E83">
+
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/icon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="Eagles Roster">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<link rel="preload" href="assets/fonts/bitter-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/opensans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead__inner">
+    <img class="masthead__mark" src="assets/eagle.png" alt="" width="480" height="205">
+    <div class="masthead__text">
+      <p class="masthead__eyebrow">2026 Varsity Schedule</p>
+      <h1 class="masthead__title">Avon Eagles Football</h1>
+    </div>
+  </div>
+  <nav class="tabs" aria-label="Primary">
+    <div class="tabs__inner">
+      <a class="tab" href="index.html">Lookup</a>
+      <a class="tab" href="roster.html">Roster</a>
+      <a class="tab tab--active" href="schedule.html" aria-current="page">Schedule</a>
+    </div>
+  </nav>
+</header>
+
+<main class="stack stack--roster" id="schedule-list">
+  <p class="roster-status" id="schedule-status">Loading schedule…</p>
+</main>
+
+<footer class="site-footer">
+  <p>2026 Avon Eagles Varsity Football</p>
+  <p class="site-footer__note">Developed by
+    <a href="https://www.linkedin.com/in/edskimin" target="_blank" rel="noopener">Ed Skimin</a> of
+    <a href="https://www.emergeinc.com" target="_blank" rel="noopener">Emerge Inc.</a>
+  </p>
+</footer>
+
+<template id="game-template">
+  <article class="card card--row card--game">
+    <div class="card__num card__date">
+      <span class="card__date-month"></span>
+      <span class="card__date-day"></span>
+    </div>
+    <div class="card__body">
+      <div class="game">
+        <div class="game__head">
+          <h2 class="game__opponent"></h2>
+          <p class="game__site"></p>
+        </div>
+        <p class="game__meta"></p>
+      </div>
+    </div>
+  </article>
+</template>
+
+<script src="schedule.js"></script>
+</body>
+</html>

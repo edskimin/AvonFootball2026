@@ -5,7 +5,7 @@ the press box, and it works with no signal once it has been opened.
 
 **Live:** https://edskimin.github.io/AvonFootball2026/
 
-## Two pages
+## Three pages
 
 - **`index.html`** — the lookup. Enter a number, get the player.
 - **`roster.html`** — the full roster, two lines per player with positions
@@ -33,8 +33,29 @@ the press box, and it works with no signal once it has been opened.
   The sort lives in the URL (`roster.html?sort=grade`), so a particular view is
   shareable and survives a refresh.
 
-The pill in the top right of the header switches between them: it reads
-**Roster** on the lookup page and **Lookup** on the roster page.
+- **`schedule.html`** — the 2026 schedule. The next upcoming game is picked
+  out in gold and labelled, and games already played are dimmed. Both are
+  worked out in the browser from the device's own date, so the page stays
+  correct all season with no edits.
+
+A tab row in the purple header moves between the three.
+
+### Updating the schedule
+
+Edit `data/schedule-2026.csv`, then:
+
+```bash
+python3 tools/build_schedule.py
+```
+
+The CSV takes `date` (ISO), `opponent`, `site` (home/away), `conference`
+(yes/no), `time`, and an optional `result`.
+
+**Kickoff times are blank right now** — the schedule I was given didn't include
+them. Fill the `time` column and they'll appear on the cards; leave it blank
+and nothing renders. Adding `result` (e.g. `W 42-21`) after a game shows the
+score on that card, which turns the page into a season record as the year goes
+on.
 
 ## How it behaves
 
@@ -132,6 +153,11 @@ in gold.
 | `styles.css` | All styling for both pages, brand tokens at the top |
 | `app.js` | Lookup, card rendering, service worker registration |
 | `roster.js` | Renders the full roster list |
+| `schedule.html` | Schedule page |
+| `schedule.js` | Renders the schedule, marks next/past games |
+| `schedule.json` | Generated from the schedule CSV |
+| `data/schedule-2026.csv` | Source of truth for the schedule |
+| `tools/build_schedule.py` | CSV → `schedule.json` |
 | `roster.json` | Generated — do not hand-edit if you can avoid it |
 | `sw.js` | Offline cache. Bump `CACHE` on every content change |
 | `data/roster-2026.csv` | Source of truth for the roster |

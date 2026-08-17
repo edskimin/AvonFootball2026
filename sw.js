@@ -10,16 +10,19 @@
 
    Bump CACHE whenever you ship a change. */
 
-var CACHE = "eagles-roster-v6";
+var CACHE = "eagles-roster-v7";
 
 var ASSETS = [
   "./",
   "index.html",
   "roster.html",
+  "schedule.html",
   "styles.css",
   "app.js",
   "roster.js",
   "roster.json",
+  "schedule.js",
+  "schedule.json",
   "manifest.webmanifest",
   "assets/eagle.png",
   "assets/icon-192.png",

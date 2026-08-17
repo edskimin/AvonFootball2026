@@ -77,7 +77,7 @@ body.has-keypad {
 }
 
 .masthead__mark {
-  height: 30px;
+  height: 32px;
   width: auto;
   flex: none;
   /* Lifts the mark off the purple field without recoloring it. */
@@ -101,7 +101,7 @@ body.has-keypad {
 .masthead__title {
   font-family: var(--display);
   font-weight: 700;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.15;
   margin: 0;
   white-space: nowrap;
@@ -109,51 +109,45 @@ body.has-keypad {
   text-overflow: ellipsis;
 }
 
-/* Reads as a control rather than a label: bordered pill plus a stacked-lines
-   glyph, so it is obvious the corner of the header is tappable. */
-.masthead__nav {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  flex: none;
-  margin-left: auto;
+/* ---------- Primary tabs ---------- */
+
+.tabs { border-top: 1px solid rgba(255, 255, 255, .15); }
+
+.tabs__inner {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 5px var(--gutter) 6px;
+  display: flex;
+  gap: 4px;
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
   font-family: var(--sans);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: .02em;
-  color: var(--gold);
+  letter-spacing: .01em;
+  color: rgba(255, 255, 255, .74);
   text-decoration: none;
-  border: 1.5px solid rgba(253, 181, 21, .55);
-  border-radius: 999px;
-  padding: 6px 11px;
+  padding: 7px 4px;
+  border-radius: 5px;
   white-space: nowrap;
   -webkit-tap-highlight-color: transparent;
 }
 
-.masthead__nav:active { background: rgba(253, 181, 21, .16); }
+.tab:active { background: rgba(255, 255, 255, .1); }
 
-.masthead__nav:focus-visible {
+/* Gold on a lifted panel rather than an underline, so the header's single
+   gold rule stays the page's one gold rule. */
+.tab--active {
+  color: var(--gold);
+  background: rgba(255, 255, 255, .14);
+}
+
+.tab:focus-visible {
   outline: 3px solid var(--gold);
-  outline-offset: 2px;
-}
-
-.masthead__nav-icon {
-  width: 13px;
-  height: 9px;
-  flex: none;
-  border-top: 1.5px solid currentColor;
-  border-bottom: 1.5px solid currentColor;
-  position: relative;
-}
-
-.masthead__nav-icon::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  margin-top: -.75px;
-  border-top: 1.5px solid currentColor;
+  outline-offset: -1px;
 }
 
 /* ---------- Entry display ---------- */
@@ -655,6 +649,96 @@ body.has-keypad {
   padding: 40px 0 4px;
 }
 
+/* ---------- Schedule ---------- */
+
+.card--game { margin: 10px 0; }
+
+.card__date {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  padding: 12px 6px;
+  line-height: 1;
+}
+
+.card__date-month {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  color: rgba(253, 181, 21, .85);
+}
+
+.card__date-day {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--gold);
+}
+
+.game { padding: 11px 14px; }
+
+.game__head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.game__opponent {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.2;
+  margin: 0;
+  min-width: 0;
+  color: var(--ink);
+  overflow-wrap: break-word;
+}
+
+/* "@" and "vs" read as a qualifier, not part of the school's name. */
+.game__prefix {
+  color: var(--slate);
+  font-size: .72em;
+  font-weight: 600;
+  margin-right: 5px;
+}
+
+.game__site {
+  margin: 0 0 0 auto;
+  flex: none;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--purple);
+  white-space: nowrap;
+}
+
+.game__meta {
+  margin: 3px 0 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--slate);
+}
+
+/* The next game up, so the page answers "who do we play Friday" at a glance. */
+.card--next {
+  border-color: var(--gold);
+  box-shadow: 0 2px 4px rgba(30, 27, 36, .06), 0 10px 26px rgba(200, 137, 14, .18);
+}
+
+.card--next .card__num {
+  background: var(--gold);
+}
+
+.card--next .card__date-month { color: rgba(46, 26, 77, .8); }
+.card--next .card__date-day { color: var(--purple-deep); }
+.card--next .game__meta { color: var(--gold-deep); font-weight: 500; }
+
+.card--past { opacity: .58; }
+
 /* ---------- Missing number ---------- */
 
 .card--missing .card__num {
@@ -746,7 +830,7 @@ body.has-keypad {
   .masthead__mark { height: 44px; }
   .masthead__title { font-size: 25px; }
   .masthead__eyebrow { font-size: 11px; }
-  .masthead__nav { font-size: 14px; padding: 7px 15px; }
+  .tab { font-size: 14px; padding: 8px 4px; }
   .entry__display { font-size: 30px; }
   .player--row .player__name { font-size: 18px; }
   .key { font-size: 27px; min-height: 54px; }
