@@ -1,8 +1,16 @@
 /* Offline support for the roster lookup.
-   Bump CACHE whenever you ship a roster or code change, otherwise phones that
-   already installed the app will keep serving the old copy. */
 
-var CACHE = "eagles-roster-v2";
+   Strategy is split on purpose:
+
+   - Content (the page, roster.json, css, js) is NETWORK FIRST. When there is a
+     signal you always get the current roster, and a mid-season update lands on
+     the next open rather than the one after. Cache is the fallback.
+   - Fonts and images are CACHE FIRST. They only change when the file name or
+     the cache version changes, so there is nothing to be stale about.
+
+   Bump CACHE whenever you ship a change. */
+
+var CACHE = "eagles-roster-v3";
 
 var ASSETS = [
   "./",
@@ -20,6 +28,9 @@ var ASSETS = [
   "assets/fonts/opensans.woff2",
   "assets/fonts/plexmono-500.woff2"
 ];
+
+// Static by nature: a new version means a new cache, not a changed file.
+var STATIC = /\.(woff2|png|svg|jpg|jpeg|ico)$/i;
 
 self.addEventListener("install", function (event) {
   event.waitUntil(
@@ -43,26 +54,51 @@ self.addEventListener("activate", function (event) {
   );
 });
 
+function cachePut(request, response) {
+  var copy = response.clone();
+  return caches.open(CACHE).then(function (cache) {
+    return cache.put(request, copy);
+  });
+}
+
+// Hand the write to waitUntil so the browser keeps the worker alive until it
+// lands. Without this it can be shut down mid-put and the cache never updates.
+function keep(event, request, response) {
+  if (response && response.status === 200) {
+    event.waitUntil(cachePut(request, response).catch(function () {}));
+  }
+  return response;
+}
+
 self.addEventListener("fetch", function (event) {
-  if (event.request.method !== "GET") return;
+  var request = event.request;
+  if (request.method !== "GET") return;
+
+  var url = new URL(request.url);
+  if (url.origin !== self.location.origin) return;
+
+  if (STATIC.test(url.pathname)) {
+    event.respondWith(
+      caches.match(request).then(function (cached) {
+        if (cached) return cached;
+        return fetch(request).then(function (response) {
+          return keep(event, request, response);
+        });
+      })
+    );
+    return;
+  }
 
   event.respondWith(
-    caches.match(event.request).then(function (cached) {
-      // Serve from cache first so a dead stadium connection never blocks a
-      // lookup, then quietly refresh the copy for next time.
-      var network = fetch(event.request).then(function (response) {
-        if (response && response.status === 200) {
-          var copy = response.clone();
-          caches.open(CACHE).then(function (cache) {
-            cache.put(event.request, copy);
-          });
-        }
-        return response;
-      }).catch(function () {
-        return cached;
-      });
-
-      return cached || network;
-    })
+    fetch(request)
+      .then(function (response) {
+        return keep(event, request, response);
+      })
+      .catch(function () {
+        return caches.match(request).then(function (cached) {
+          // A navigation to any path in scope falls back to the app shell.
+          return cached || caches.match("./");
+        });
+      })
   );
 });

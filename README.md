@@ -44,9 +44,10 @@ That rewrites `roster.json`, applying the sort order the page depends on:
 higher grade first, then heavier player, then last name so the order never
 wobbles between builds.
 
-**Then bump the cache version in `sw.js`** (`eagles-roster-v1` → `-v2`).
-Phones that already loaded the page serve it from their own cache, and without
-a new version number they will keep showing the old roster.
+**Then bump the cache version in `sw.js`** (`eagles-roster-v3` → `-v4`) and
+push. The service worker is network-first for the page and the roster, so a
+phone with a signal picks up the change on the next open; the version bump is
+what clears the old files for phones that were offline.
 
 You can also hand-edit `roster.json` directly for a one-off change, but the CSV
 is the source of truth and the next build will overwrite you.
