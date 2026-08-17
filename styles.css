@@ -422,9 +422,147 @@ body.has-keypad {
 
 .card--latest .player__pos li { font-size: 12px; padding: 3px 9px; }
 
+/* ---------- Roster page: sort bar ---------- */
+
+.sortbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 6px 14px -10px rgba(46, 26, 77, .5);
+}
+
+.sortbar__inner {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 8px var(--gutter);
+}
+
+.sortbar__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sortbar__row--jump { margin-top: 7px; }
+
+.sortbar__label {
+  flex: none;
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--slate);
+}
+
+.sortbar__options {
+  display: flex;
+  flex: 1;
+  gap: 5px;
+  min-width: 0;
+}
+
+.sort-btn {
+  flex: 1;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .01em;
+  color: var(--purple);
+  background: var(--white);
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sort-btn[aria-pressed="true"] {
+  color: var(--white);
+  background: var(--purple);
+  border-color: var(--purple);
+}
+
+.sort-btn:focus-visible {
+  outline: 3px solid var(--purple);
+  outline-offset: 2px;
+}
+
+.jump { display: block; width: 100%; }
+
+.jump__select {
+  width: 100%;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--purple-deep);
+  background-color: var(--white);
+  border: 1.5px solid var(--line);
+  border-radius: 6px;
+  padding: 8px 34px 8px 12px;
+  -webkit-appearance: none;
+  appearance: none;
+  /* Chevron drawn inline so the control needs no network request. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5l5-5' fill='none' stroke='%234B2E83' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+
+.jump__select:focus-visible {
+  outline: 3px solid var(--purple);
+  outline-offset: 2px;
+}
+
+/* ---------- Roster page: sections ---------- */
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  max-width: var(--measure);
+  margin: 22px 0 8px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--gold);
+  /* Clears the sticky sort bar when "jump to" scrolls here. */
+  scroll-margin-top: calc(var(--sortbar-h, 96px) + 10px);
+}
+
+.section-head:first-child { margin-top: 4px; }
+
+.section-head__label {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.2;
+  color: var(--purple-deep);
+}
+
+.section-head__tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--slate);
+}
+
+.section-head__count {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--slate);
+}
+
 /* ---------- Roster page ---------- */
 
-.stack--roster { padding-top: 18px; }
+.stack--roster { padding-top: 14px; }
 
 /* Tighter than the lookup cards: this is a list to scan, not a hero. */
 .card--row { margin: 10px 0; }

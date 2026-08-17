@@ -8,8 +8,25 @@ the press box, and it works with no signal once it has been opened.
 ## Two pages
 
 - **`index.html`** — the lookup. Enter a number, get the player.
-- **`roster.html`** — the full roster in jersey number order, two lines per
-  player with positions right-aligned on the name's line.
+- **`roster.html`** — the full roster, two lines per player with positions
+  right-aligned on the name's line. Sortable four ways:
+
+  | Sort | Behaviour |
+  | --- | --- |
+  | Number | Jersey order, shared numbers grouped on one card. No sections. |
+  | A–Z | By last name, divided by first letter. |
+  | Grade | Gr. 12 / 11 / 10 sections, by number within each. |
+  | Position | Offense, then defense, then special teams. |
+
+  Every sort but Number gets section dividers and a **Jump to…** menu.
+
+  Two-way players are listed under **each** position they play, so the position
+  totals add up to more than 118. That is deliberate — you want the whole
+  linebacker group when you look up linebackers — and the line under the list
+  says so.
+
+  The sort lives in the URL (`roster.html?sort=grade`), so a particular view is
+  shareable and survives a refresh.
 
 The pill in the top right of the header switches between them: it reads
 **Roster** on the lookup page and **Lookup** on the roster page.

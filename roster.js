@@ -1,19 +1,51 @@
-/* Avon Eagles Football — full roster, in jersey number order */
+/* Avon Eagles Football — full roster, sortable */
 
 (function () {
   "use strict";
 
   var list = document.getElementById("roster-list");
   var status = document.getElementById("roster-status");
+  var sortbar = document.getElementById("sortbar");
+  var jumpRow = document.getElementById("jump-row");
+  var jumpSelect = document.getElementById("jump-select");
   var cardTemplate = document.getElementById("card-template");
   var playerTemplate = document.getElementById("player-template");
+  var sectionTemplate = document.getElementById("section-template");
+
+  var players = [];
+  var byNumber = {};
+  var sort = "number";
+
+  // Offense, then defense, then special teams. Order carries the grouping, so
+  // the sections don't need their own super-headings.
+  var POSITIONS = [
+    ["QB", "Quarterbacks"],
+    ["RB", "Running Backs"],
+    ["WR", "Wide Receivers"],
+    ["TE", "Tight Ends"],
+    ["OL", "Offensive Line"],
+    ["DL", "Defensive Line"],
+    ["LB", "Linebackers"],
+    ["DB", "Defensive Backs"],
+    ["K", "Kickers"],
+    ["P", "Punters"],
+    ["LS", "Long Snappers"]
+  ];
+
+  var GRADES = [
+    [12, "Gr. 12", "Seniors"],
+    [11, "Gr. 11", "Juniors"],
+    [10, "Gr. 10", "Sophomores"]
+  ];
+
+  /* ---------- Data ---------- */
 
   fetch("roster.json", { cache: "no-cache" })
     .then(function (res) {
       if (!res.ok) throw new Error("HTTP " + res.status);
       return res.json();
     })
-    .then(render)
+    .then(start)
     .catch(function (err) {
       status.textContent =
         location.protocol === "file:"
@@ -21,47 +53,234 @@
           : "Could not read roster.json (" + err.message + ").";
     });
 
-  function render(data) {
-    status.remove();
-
-    // roster.json keys are strings, so sort numerically rather than
-    // lexically or #10 would land between #1 and #2.
-    var numbers = Object.keys(data.numbers).sort(function (a, b) {
-      return Number(a) - Number(b);
+  function start(data) {
+    byNumber = data.numbers;
+    Object.keys(byNumber).forEach(function (num) {
+      players = players.concat(byNumber[num]);
     });
 
-    var frag = document.createDocumentFragment();
-    for (var i = 0; i < numbers.length; i++) {
-      frag.appendChild(buildCard(numbers[i], data.numbers[numbers[i]]));
+    // A sort in the URL makes a view shareable and survives a refresh.
+    var wanted = new URLSearchParams(location.search).get("sort");
+    if (wanted && document.querySelector('.sort-btn[data-sort="' + wanted + '"]')) {
+      sort = wanted;
     }
-    list.appendChild(frag);
 
-    var count = document.createElement("p");
-    count.className = "roster-status";
-    count.textContent = data.count + " players · " + numbers.length + " numbers";
-    list.appendChild(count);
+    status.remove();
+    bindControls();
+    render();
   }
 
-  function buildCard(num, players) {
+  function lastName(player) {
+    var parts = player.name.trim().split(/\s+/);
+    return parts[parts.length - 1].toLowerCase();
+  }
+
+  function byJersey(a, b) {
+    return a.num - b.num || lastName(a).localeCompare(lastName(b));
+  }
+
+  function byName(a, b) {
+    return lastName(a).localeCompare(lastName(b)) || a.num - b.num;
+  }
+
+  /* ---------- Section building ---------- */
+
+  // Every sort returns the same shape, so render() stays simple: a list of
+  // sections, each with an optional heading and the rows beneath it.
+  function buildSections() {
+    if (sort === "number") {
+      return [{
+        id: null,
+        groups: Object.keys(byNumber)
+          .sort(function (a, b) { return Number(a) - Number(b); })
+          .map(function (num) { return { num: num, players: byNumber[num] }; })
+      }];
+    }
+
+    if (sort === "alpha") {
+      var letters = {};
+      players.slice().sort(byName).forEach(function (p) {
+        var letter = lastName(p).charAt(0).toUpperCase();
+        (letters[letter] = letters[letter] || []).push(p);
+      });
+      return Object.keys(letters).sort().map(function (letter) {
+        return {
+          id: "sec-" + letter,
+          label: letter,
+          count: letters[letter].length,
+          groups: letters[letter].map(single)
+        };
+      });
+    }
+
+    if (sort === "grade") {
+      return GRADES.map(function (g) {
+        var group = players.filter(function (p) { return p.grade === g[0]; }).sort(byJersey);
+        return {
+          id: "sec-gr" + g[0],
+          label: g[1],
+          tag: g[2],
+          count: group.length,
+          groups: group.map(single)
+        };
+      }).filter(function (s) { return s.count; });
+    }
+
+    // Position. A player who plays both ways is listed under each position —
+    // you want the whole linebacker group when you look up linebackers.
+    return POSITIONS.map(function (pos) {
+      var group = players.filter(function (p) {
+        return p.pos.indexOf(pos[0]) !== -1;
+      }).sort(byJersey);
+      return {
+        id: "sec-pos" + pos[0],
+        label: pos[1],
+        tag: pos[0],
+        count: group.length,
+        groups: group.map(single)
+      };
+    }).filter(function (s) { return s.count; });
+  }
+
+  function single(player) {
+    return { num: String(player.num), players: [player] };
+  }
+
+  /* ---------- Rendering ---------- */
+
+  function render() {
+    var cards = list.querySelectorAll(".card, .section-head, .roster-status");
+    for (var i = 0; i < cards.length; i++) cards[i].remove();
+
+    var sections = buildSections();
+    var frag = document.createDocumentFragment();
+
+    sections.forEach(function (section) {
+      if (section.id) frag.appendChild(buildSectionHead(section));
+      section.groups.forEach(function (group) {
+        frag.appendChild(buildCard(group.num, group.players));
+      });
+    });
+
+    var tail = document.createElement("p");
+    tail.className = "roster-status";
+    tail.textContent = sort === "position"
+      // The position total exceeds the roster because two-way players appear
+      // in more than one group; saying so avoids looking like a bug.
+      ? players.length + " players · listed under each position they play"
+      : players.length + " players · " + Object.keys(byNumber).length + " numbers";
+    frag.appendChild(tail);
+
+    list.appendChild(frag);
+    buildJump(sections);
+  }
+
+  function buildSectionHead(section) {
+    var el = sectionTemplate.content.firstElementChild.cloneNode(true);
+    el.id = section.id;
+    el.querySelector(".section-head__label").textContent = section.label;
+
+    var tag = el.querySelector(".section-head__tag");
+    if (section.tag) tag.textContent = section.tag;
+    else tag.remove();
+
+    el.querySelector(".section-head__count").textContent = section.count;
+    return el;
+  }
+
+  function buildCard(num, group) {
     var card = cardTemplate.content.firstElementChild.cloneNode(true);
     card.querySelector(".card__num-value").textContent = num;
 
     var body = card.querySelector(".card__body");
-    for (var i = 0; i < players.length; i++) {
-      body.appendChild(buildPlayer(players[i]));
-    }
+    for (var i = 0; i < group.length; i++) body.appendChild(buildPlayer(group[i]));
     return card;
   }
 
   function buildPlayer(player) {
     var el = playerTemplate.content.firstElementChild.cloneNode(true);
     el.querySelector(".player__name").textContent = player.name;
-    // Positions sit inline and right-aligned here, so the whole player fits
-    // on two lines rather than the lookup page's three.
+    // Positions sit inline and right-aligned, so each player fits on two lines.
     el.querySelector(".player__pos-inline").textContent = player.pos.join(" / ");
     el.querySelector(".player__meta").textContent =
       "Gr. " + player.grade + "  ·  " + player.height + "  ·  " + player.weight + " lbs";
     return el;
+  }
+
+  /* ---------- Controls ---------- */
+
+  function bindControls() {
+    var buttons = document.querySelectorAll(".sort-btn");
+
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].addEventListener("click", function (event) {
+        var next = event.currentTarget.dataset.sort;
+        if (next === sort) return;
+        sort = next;
+        syncButtons();
+
+        var url = new URL(location.href);
+        if (sort === "number") url.searchParams.delete("sort");
+        else url.searchParams.set("sort", sort);
+        history.replaceState(null, "", url);
+
+        render();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+
+    jumpSelect.addEventListener("change", function () {
+      var target = document.getElementById(jumpSelect.value);
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      jumpSelect.selectedIndex = 0;
+    });
+
+    syncButtons();
+    measureSortbar();
+    window.addEventListener("resize", measureSortbar);
+    window.addEventListener("orientationchange", measureSortbar);
+  }
+
+  function syncButtons() {
+    var buttons = document.querySelectorAll(".sort-btn");
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].setAttribute("aria-pressed", String(buttons[i].dataset.sort === sort));
+    }
+  }
+
+  function buildJump(sections) {
+    var jumpable = sections.filter(function (s) { return s.id; });
+    jumpRow.hidden = !jumpable.length;
+    jumpSelect.innerHTML = "";
+
+    if (!jumpable.length) {
+      measureSortbar();
+      return;
+    }
+
+    var placeholder = document.createElement("option");
+    placeholder.textContent = "Jump to…";
+    placeholder.value = "";
+    jumpSelect.appendChild(placeholder);
+
+    jumpable.forEach(function (section) {
+      var option = document.createElement("option");
+      option.value = section.id;
+      option.textContent = section.tag
+        ? section.label + " (" + section.count + ")"
+        : section.label + " (" + section.count + ")";
+      jumpSelect.appendChild(option);
+    });
+
+    measureSortbar();
+  }
+
+  // The sort bar is sticky, so section headings need a scroll margin equal to
+  // its height or "jump to" lands them underneath it.
+  function measureSortbar() {
+    document.documentElement.style.setProperty(
+      "--sortbar-h", sortbar.offsetHeight + "px"
+    );
   }
 
   if ("serviceWorker" in navigator && location.protocol !== "file:") {
