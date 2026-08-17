@@ -37,8 +37,9 @@ body {
   font-family: var(--sans);
   font-size: 16px;
   line-height: 1.6;
-  /* Room for the iPhone home indicator. */
-  padding-bottom: env(safe-area-inset-bottom);
+  /* The keypad is fixed, so the page reserves its height to keep the last
+     card and the footer reachable. app.js measures it into --keypad-h. */
+  padding-bottom: calc(var(--keypad-h, 250px) + 16px);
 }
 
 .visually-hidden {
@@ -112,9 +113,9 @@ body {
   flex: none;
 }
 
-/* ---------- Search bar ---------- */
+/* ---------- Entry display ---------- */
 
-.searchbar {
+.entry {
   position: sticky;
   top: 0;
   z-index: 10;
@@ -124,77 +125,113 @@ body {
   box-shadow: 0 6px 14px -10px rgba(46, 26, 77, .5);
 }
 
-.searchbar__inner {
+.entry__inner {
   max-width: var(--measure);
   margin: 0 auto;
-  padding: 12px var(--gutter) 8px;
-  display: flex;
-  gap: 10px;
+  padding: 10px var(--gutter) 6px;
 }
 
-.searchbar__input {
-  flex: 1;
-  min-width: 0;
+.entry__display {
   font-family: var(--display);
   font-weight: 700;
-  font-size: 34px;
+  font-size: 32px;
   line-height: 1;
   text-align: center;
-  letter-spacing: .04em;
+  letter-spacing: .06em;
   color: var(--purple-deep);
   background: var(--white);
   border: 2px solid var(--line);
   border-radius: var(--radius);
   padding: 10px 12px;
-  /* iOS zooms the page on focus for anything under 16px. This is well over. */
+  margin: 0;
+}
+
+/* Standing in for a placeholder. 3:1 on white, which clears AA at this size. */
+.entry__display--empty { color: #9A90AE; }
+
+.entry__hint {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 var(--gutter) 9px;
+  font-size: 12px;
+  color: var(--slate);
+  text-align: center;
+}
+
+/* ---------- Keypad ---------- */
+
+.keypad {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -8px 20px -14px rgba(46, 26, 77, .6);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.keypad__inner {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 8px var(--gutter) 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7px;
+}
+
+.key {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 1;
+  color: var(--purple-deep);
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  /* Comfortably past the 44px minimum touch target, for cold hands. */
+  min-height: 50px;
+  cursor: pointer;
   -webkit-appearance: none;
   appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  /* Stops iOS selecting the digit on a fast double tap. */
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
 }
 
-.searchbar__input::placeholder {
-  /* 3:1 on white, which clears AA at this size (34px bold counts as large
-     text). The real instruction is the hint below, not the placeholder. */
-  color: #9A90AE;
+.key:active { background: #EDE9F3; }
+
+.key:focus-visible {
+  outline: 3px solid var(--purple);
+  outline-offset: 2px;
 }
 
-.searchbar__input:focus {
-  outline: none;
-  border-color: var(--purple);
-  box-shadow: 0 0 0 4px rgba(75, 46, 131, .14);
-}
+.key[disabled] { opacity: .4; cursor: default; }
 
-.searchbar__go {
-  flex: none;
+.key--back {
   font-family: var(--sans);
-  font-weight: 700;
+  font-size: 20px;
+  color: var(--slate);
+  background: transparent;
+  border-color: transparent;
+}
+
+.key--back:active { background: #EDE9F3; }
+
+.key--go {
+  font-family: var(--sans);
   font-size: 18px;
   letter-spacing: .04em;
   /* Deep purple on gold, at 18px bold — the smallest size the guide allows. */
   color: var(--purple-deep);
   background: var(--gold);
-  border: 2px solid var(--gold);
-  border-radius: var(--radius);
-  padding: 0 26px;
-  cursor: pointer;
-  -webkit-appearance: none;
-  appearance: none;
+  border-color: var(--gold);
 }
 
-.searchbar__go:active { background: var(--gold-deep); border-color: var(--gold-deep); }
-
-.searchbar__go:focus-visible {
-  outline: 3px solid var(--purple);
-  outline-offset: 2px;
-}
-
-.searchbar__hint {
-  max-width: var(--measure);
-  margin: 0 auto;
-  padding: 0 var(--gutter) 10px;
-  font-size: 12px;
-  color: var(--slate);
-  text-align: center;
-}
+.key--go:active { background: var(--gold-deep); border-color: var(--gold-deep); }
 
 /* ---------- Layout ---------- */
 
@@ -415,7 +452,7 @@ body {
 .site-footer {
   max-width: var(--measure);
   margin: 34px auto 0;
-  padding: 16px var(--gutter) 34px;
+  padding: 16px var(--gutter) 8px;
   border-top: 1px solid var(--line);
   font-size: 12px;
   color: var(--slate);
@@ -433,7 +470,8 @@ body {
   .masthead__title { font-size: 25px; }
   .masthead__eyebrow { font-size: 11px; }
   .masthead__season { font-size: 15px; }
-  .searchbar__input { font-size: 38px; }
+  .entry__display { font-size: 36px; }
+  .key { font-size: 27px; min-height: 54px; }
   .card { grid-template-columns: 92px 1fr; }
   .card--latest { grid-template-columns: 116px 1fr; }
   .card--latest .card__num { font-size: 58px; }

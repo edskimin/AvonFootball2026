@@ -2,7 +2,7 @@
    Bump CACHE whenever you ship a roster or code change, otherwise phones that
    already installed the app will keep serving the old copy. */
 
-var CACHE = "eagles-roster-v1";
+var CACHE = "eagles-roster-v2";
 
 var ASSETS = [
   "./",

@@ -7,10 +7,17 @@ the press box, and it works with no signal once it has been opened.
 
 ## How it behaves
 
+- **The number pad is part of the page**, not the phone's keyboard. iOS puts an
+  AutoFill bar (key / card / location icons) above the system keyboard on any
+  focused text field, and there is no way for a page to suppress it — it was
+  covering the second player on shared numbers. So there is no focusable input
+  here at all. The keypad is fixed to the bottom of the screen, the buttons are
+  bigger than system keys, and nothing ever covers the card. On a laptop you
+  can just type: digits, Backspace, and Enter all work.
 - **Two digits fire automatically.** Every number on the roster is one or two
   digits, and 0–9 are all real jerseys, so a single digit can't submit on its
   own — it might be the first half of a two-digit number. For #0 through #9,
-  type the digit and tap **GO**.
+  tap the digit and then **GO**.
 - **Shared numbers show both players.** 27 of the 91 numbers in use are worn by
   two players. Both appear on one card, higher grade on top. When both players
   are the same grade (#35, #44, #68), the heavier player goes on top.

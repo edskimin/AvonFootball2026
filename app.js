@@ -3,9 +3,9 @@
 (function () {
   "use strict";
 
-  var form = document.getElementById("lookup-form");
-  var input = document.getElementById("number-input");
-  var goBtn = document.getElementById("go-btn");
+  var keypad = document.getElementById("keypad");
+  var display = document.getElementById("entry-display");
+  var displayValue = document.getElementById("entry-value");
   var results = document.getElementById("results");
   var emptyState = document.getElementById("empty-state");
   var clearBtn = document.getElementById("clear-btn");
@@ -14,6 +14,7 @@
   var playerTemplate = document.getElementById("player-template");
 
   var roster = null;
+  var entry = "";
 
   /* ---------- Data ---------- */
 
@@ -26,11 +27,7 @@
       roster = data;
       footerCount.textContent =
         data.team + " · " + data.season + " media roster · " + data.count + " players";
-      input.disabled = false;
-      goBtn.disabled = false;
-      // Desktop gets the cursor placed for them; mobile keyboards should only
-      // open on a real tap, so we skip autofocus on touch devices.
-      if (!window.matchMedia("(hover: none)").matches) input.focus();
+      setKeysEnabled(true);
     })
     .catch(function (err) {
       showLoadError(err);
@@ -54,41 +51,90 @@
     emptyState.appendChild(note);
   }
 
-  /* ---------- Input ---------- */
+  /* ---------- Entry ---------- */
 
-  input.addEventListener("input", function () {
-    var digits = input.value.replace(/\D/g, "").slice(0, 2);
-    if (digits !== input.value) input.value = digits;
+  function setKeysEnabled(on) {
+    var keys = keypad.querySelectorAll(".key");
+    for (var i = 0; i < keys.length; i++) keys[i].disabled = !on;
+  }
+
+  function render() {
+    displayValue.textContent = entry.length ? entry : "00";
+    display.classList.toggle("entry__display--empty", !entry.length);
+  }
+
+  function pressDigit(digit) {
+    if (!roster || entry.length >= 2) return;
+    entry += digit;
+    render();
 
     // Every number on the roster is one or two digits, and 0-9 are all real
     // jersey numbers, so a single digit can't fire on its own — it might be
     // the first half of a two-digit number. Two digits are unambiguous.
-    if (digits.length === 2) submit();
+    if (entry.length === 2) submit();
+  }
+
+  function pressBack() {
+    if (!entry.length) return;
+    entry = entry.slice(0, -1);
+    render();
+  }
+
+  function submit() {
+    if (!roster || !entry.length) return;
+
+    // "05" and "5" are the same jersey.
+    var num = String(parseInt(entry, 10));
+    entry = "";
+    render();
+    addCard(num, roster.numbers[num] || []);
+  }
+
+  keypad.addEventListener("click", function (event) {
+    var key = event.target.closest(".key");
+    if (!key || key.disabled) return;
+
+    if (key.dataset.digit) pressDigit(key.dataset.digit);
+    else if (key.dataset.action === "back") pressBack();
+    else if (key.dataset.action === "go") submit();
   });
 
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
-    submit();
+  // A laptop in the press box should still be able to just type.
+  document.addEventListener("keydown", function (event) {
+    if (event.metaKey || event.ctrlKey || event.altKey) return;
+
+    if (event.key >= "0" && event.key <= "9") {
+      pressDigit(event.key);
+    } else if (event.key === "Backspace") {
+      event.preventDefault();
+      pressBack();
+    } else if (event.key === "Enter") {
+      // Let Enter activate a focused button rather than hijacking it.
+      if (document.activeElement && document.activeElement.tagName === "BUTTON") return;
+      submit();
+    } else {
+      return;
+    }
   });
 
   clearBtn.addEventListener("click", function () {
     var cards = results.querySelectorAll(".card");
     for (var i = 0; i < cards.length; i++) dropCard(cards[i]);
-    input.value = "";
-    input.focus();
+    entry = "";
+    render();
   });
 
-  function submit() {
-    if (!roster) return;
-
-    var raw = input.value.replace(/\D/g, "");
-    input.value = "";
-    if (!raw.length) return;
-
-    // "05" and "5" are the same jersey.
-    var num = String(parseInt(raw, 10));
-    addCard(num, roster.numbers[num] || []);
+  // The keypad is fixed, so the page has to reserve exactly its height.
+  function measureKeypad() {
+    document.documentElement.style.setProperty(
+      "--keypad-h", keypad.offsetHeight + "px"
+    );
   }
+
+  render();
+  measureKeypad();
+  window.addEventListener("resize", measureKeypad);
+  window.addEventListener("orientationchange", measureKeypad);
 
   /* ---------- Rendering ---------- */
 
