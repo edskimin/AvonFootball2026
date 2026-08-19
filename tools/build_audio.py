@@ -33,8 +33,13 @@ MANIFEST = ROOT / "audio.json"
 
 API = "https://api.elevenlabs.io/v1/text-to-speech/{voice}?output_format={fmt}"
 
-DEFAULT_VOICE = "CGAu2kssR43jp9xX4pFv"      # Eric
-DEFAULT_MODEL = "eleven_multilingual_v2"
+# Eric, and specifically the *premade* Eric. Free accounts get a 402 on voices
+# from the shared library, so the library "Eric - Clear, Concise and Kind"
+# cannot be used without a paid plan.
+DEFAULT_VOICE = "cjVigY5qzO86Huf0OWal"
+# Flash bills at half the character rate. Latency is irrelevant here since
+# clips are generated ahead of time, so the saving is free.
+DEFAULT_MODEL = "eleven_flash_v2_5"
 # 32kbps mono is plenty for speech and keeps the offline cache small.
 DEFAULT_FORMAT = "mp3_22050_32"
 
