@@ -80,11 +80,26 @@ def main():
     ap.add_argument("--suffix", default="", help="append to filenames, for A/B samples")
     ap.add_argument("--force", action="store_true", help="regenerate even if unchanged")
     ap.add_argument("--dry-run", action="store_true", help="report cost, generate nothing")
+    ap.add_argument("--text", help="speak this literal text instead of the roster")
+    ap.add_argument("--out", help="filename for --text, written to assets/audio/")
     args = ap.parse_args()
 
     key = os.environ.get("ELEVENLABS_API_KEY")
     if not key and not args.dry_run:
         sys.exit("ELEVENLABS_API_KEY is not set. See the README.")
+
+    # Ad-hoc mode: try a pronunciation before committing it to the CSV.
+    # Writes nothing to the manifest, so it never affects a real build.
+    if args.text:
+        if not args.out:
+            sys.exit("--text also needs --out, e.g. --out try1.mp3")
+        OUT_DIR.mkdir(parents=True, exist_ok=True)
+        audio = synthesize(args.text, args.voice, args.model, args.fmt, key)
+        dest = OUT_DIR / args.out
+        dest.write_bytes(audio)
+        print(f"{dest.relative_to(ROOT)}  {len(audio)//1024} KB  "
+              f"{len(args.text)} chars  \"{args.text}\"")
+        return
 
     announce = json.loads(ROSTER.read_text())["announce"]
 
