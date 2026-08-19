@@ -19,6 +19,13 @@
 
   var speech = window.speechSynthesis || null;
 
+  // Recorded clips when we have them, the browser voice otherwise. One shared
+  // Audio element, because iOS only lets an element play after it has been
+  // started once inside a real tap.
+  var clips = {};
+  var player = new Audio();
+  player.preload = "none";
+
   // One control, three states, cycled by tapping. Off is first so the page
   // never makes noise until someone asks for it.
   var AUDIO_STATES = [
@@ -28,14 +35,6 @@
   ];
 
   var audioIndex = 0;
-
-  var GRADE_SPOKEN = { 9: "Freshman", 10: "Sophomore", 11: "Junior", 12: "Senior" };
-
-  var POS_SPOKEN = {
-    QB: "Quarterback", RB: "Running Back", WR: "Wide Receiver", TE: "Tight End",
-    OL: "Offensive Lineman", DL: "Defensive Lineman", LB: "Linebacker",
-    DB: "Defensive Back", K: "Kicker", P: "Punter", LS: "Long Snapper"
-  };
 
   /* ---------- Data ---------- */
 
@@ -72,50 +71,56 @@
 
   /* ---------- Speaking ---------- */
 
-  function speakableName(player) {
-    // The Say column is a phonetic respelling for the voice only. It never
-    // changes what is printed on the card.
-    return player.say || player.name;
-  }
-
-  function speakablePositions(player) {
-    var named = player.pos.map(function (pos) {
-      return POS_SPOKEN[pos] || pos;
-    });
-    if (named.length < 2) return named.join("");
-    return named.slice(0, -1).join(", ") + " and " + named[named.length - 1];
-  }
-
   function announcement(num, players) {
-    if (!players.length) return "Number " + num + ". No player.";
-
-    // Leading with the number matters: with the phone at your side you can't
-    // see what you typed, and a mistyped number would otherwise be announced
-    // as a confident wrong answer.
-    var parts = ["Number " + num + (players.length > 1 ? ", two players." : ".")];
-
-    players.forEach(function (player) {
-      var bits = [speakableName(player), GRADE_SPOKEN[player.grade] || ""];
-      var pos = speakablePositions(player);
-      if (pos) bits.push(pos);
-      parts.push(bits.filter(Boolean).join(", ") + ".");
-    });
-
-    return parts.join(" ");
+    // roster.json carries the wording, built by tools/build_roster.py, so the
+    // recorded clips and the browser voice always say the same thing.
+    if (roster && roster.announce && roster.announce[num]) {
+      return roster.announce[num];
+    }
+    return "Number " + num + ". No player.";
   }
 
   function audioState() {
     return AUDIO_STATES[audioIndex];
   }
 
-  function speak(text) {
+  function stopAudio() {
+    if (speech) speech.cancel();
+    player.pause();
+  }
+
+  // num is optional: pass it to prefer a recorded clip for that jersey.
+  function speak(text, num) {
     var state = audioState();
-    if (!state.rate || !speech) return;
-    // Cancel first, so a new lookup cuts off the previous announcement
-    // instead of queueing behind it.
+    if (!state.rate) return;
+
+    // A new lookup cuts off the previous announcement rather than queueing.
+    stopAudio();
+
+    var clip = num && clips[num];
+    if (clip) {
+      player.src = clip.file;
+      // Same speed control as the browser voice. preservesPitch keeps it from
+      // sounding chipmunky at the faster setting.
+      player.playbackRate = state.rate;
+      player.preservesPitch = true;
+      player.webkitPreservesPitch = true;
+      var attempt = player.play();
+      if (attempt && attempt.catch) {
+        // Autoplay refused or the file is missing — say it instead of nothing.
+        attempt.catch(function () { browserSpeak(text, state.rate); });
+      }
+      return;
+    }
+
+    browserSpeak(text, state.rate);
+  }
+
+  function browserSpeak(text, rate) {
+    if (!speech) return;
     speech.cancel();
     var utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = state.rate;
+    utterance.rate = rate;
     utterance.lang = "en-US";
     speech.speak(utterance);
   }
@@ -125,16 +130,27 @@
     audioBtn.dataset.state = state.name;
     audioBtn.setAttribute("aria-label", state.label);
     audioBtn.title = state.title;
-    if (!state.rate && speech) speech.cancel();
+    if (!state.rate) stopAudio();
     try { localStorage.setItem("avon.audioState", state.name); } catch (e) {}
   }
 
+  function loadClips() {
+    // Entirely optional. No manifest, or a bad one, just means every
+    // announcement uses the browser voice.
+    fetch("audio.json", { cache: "no-cache" })
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (data) { if (data && data.clips) clips = data.clips; })
+      .catch(function () {});
+  }
+
   function bindAudio() {
-    if (!speech) {
+    if (!speech && !window.Audio) {
       // No speech support: hide the control rather than offer a dead button.
       audioBtn.hidden = true;
       return;
     }
+
+    loadClips();
 
     audioBtn.addEventListener("click", function () {
       audioIndex = (audioIndex + 1) % AUDIO_STATES.length;
@@ -266,7 +282,7 @@
     // after itself instead of leaving a dead card in the history.
     if (!players.length) scheduleDismiss(card);
 
-    speak(announcement(num, players));
+    speak(announcement(num, players), num);
 
     window.scrollTo({ top: 0, behavior: "smooth" });
   }

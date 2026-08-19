@@ -10,7 +10,7 @@
 
    Bump CACHE whenever you ship a change. */
 
-var CACHE = "eagles-roster-v12";
+var CACHE = "eagles-roster-v13";
 
 var ASSETS = [
   "./",
@@ -36,7 +36,7 @@ var ASSETS = [
 ];
 
 // Static by nature: a new version means a new cache, not a changed file.
-var STATIC = /\.(woff2|png|svg|jpg|jpeg|ico)$/i;
+var STATIC = /\.(woff2|png|svg|jpg|jpeg|ico|mp3)$/i;
 
 self.addEventListener("install", function (event) {
   event.waitUntil(

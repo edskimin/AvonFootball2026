@@ -1,0 +1,12 @@
+{
+ "voice": "cjVigY5qzO86Huf0OWal",
+ "model": "eleven_flash_v2_5",
+ "format": "mp3_22050_32",
+ "clips": {
+  "9": {
+   "file": "assets/audio/9.mp3",
+   "hash": "703cfb7583d5",
+   "bytes": 25931
+  }
+ }
+}

@@ -25,6 +25,18 @@ import re
 import sys
 from pathlib import Path
 
+# Spoken forms. These live here rather than in the browser so the announcement
+# text has exactly one definition — the same string feeds the browser voice and
+# the generated audio, which can therefore never drift apart.
+GRADE_SPOKEN = {9: "Freshman", 10: "Sophomore", 11: "Junior", 12: "Senior"}
+
+POS_SPOKEN = {
+    "QB": "Quarterback", "RB": "Running Back", "WR": "Wide Receiver",
+    "TE": "Tight End", "OL": "Offensive Lineman", "DL": "Defensive Lineman",
+    "LB": "Linebacker", "DB": "Defensive Back", "K": "Kicker",
+    "P": "Punter", "LS": "Long Snapper",
+}
+
 ROOT = Path(__file__).resolve().parent.parent
 SRC = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "data" / "roster-2026.csv"
 OUT = ROOT / "roster.json"
@@ -41,6 +53,32 @@ def normalize_height(raw):
         return raw
     feet, inches = m.group(1), m.group(2) or "0"
     return f"{feet}'{inches}\""
+
+
+def spoken_positions(player):
+    named = [POS_SPOKEN.get(p, p) for p in player["pos"]]
+    if len(named) < 2:
+        return "".join(named)
+    return ", ".join(named[:-1]) + " and " + named[-1]
+
+
+def announcement(num, players):
+    """What the app says out loud for one jersey number.
+
+    Leads with the number on purpose: with the phone at your side you cannot
+    see what you typed, so a mistyped number would otherwise be read back as a
+    confident wrong answer.
+    """
+    head = f"Number {num}" + (", two players." if len(players) > 1 else ".")
+    parts = [head]
+    for p in players:
+        # The Say column is a phonetic respelling for the voice only.
+        bits = [p.get("say") or p["name"], GRADE_SPOKEN.get(p["grade"], "")]
+        pos = spoken_positions(p)
+        if pos:
+            bits.append(pos)
+        parts.append(", ".join(b for b in bits if b) + ".")
+    return " ".join(parts)
 
 
 def last_name(name):
@@ -85,11 +123,14 @@ def main():
     for p in players:
         numbers.setdefault(str(p["num"]), []).append(p)
 
+    ordered = dict(sorted(numbers.items(), key=lambda kv: int(kv[0])))
+
     data = {
         "team": TEAM,
         "season": SEASON,
         "count": len(players),
-        "numbers": dict(sorted(numbers.items(), key=lambda kv: int(kv[0]))),
+        "numbers": ordered,
+        "announce": {num: announcement(num, ps) for num, ps in ordered.items()},
     }
 
     OUT.write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")

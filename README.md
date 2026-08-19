@@ -82,9 +82,32 @@ on.
 
   The choice persists. Speeds live in `AUDIO_STATES` in `app.js`.
 
-  This uses the browser's built-in speech, so it costs nothing, needs no
-  account, and works offline. Names it mispronounces are fixed with the `Say`
-  column, below.
+  Where a recorded clip exists it plays that; otherwise the browser's built-in
+  voice reads the same words. The wording itself lives in `roster.json`, built
+  by `tools/build_roster.py`, so the recordings and the browser voice can never
+  drift apart. Names either one mispronounces are fixed with the `Say` column,
+  below.
+
+### Recorded announcements
+
+`tools/build_audio.py` generates one MP3 per jersey number with ElevenLabs and
+writes `audio.json`. The site only ever serves the finished files — no API call
+happens in the browser, so there is no key to expose, no runtime cost, and it
+still works offline.
+
+```bash
+export ELEVENLABS_API_KEY=...             # never commit this
+python3 tools/build_audio.py --dry-run    # what would it cost?
+python3 tools/build_audio.py --only 9     # one number
+python3 tools/build_audio.py              # everything that changed
+```
+
+Generation is incremental: each clip stores a hash of its text, voice and
+model, and is only remade when one of those changes. A roster edit costs a few
+hundred characters rather than the ~7,800 a full run takes.
+
+Numbers with no clip fall back to the browser voice automatically, which is
+also what happens for a number nobody wears.
 - **Two digits fire automatically.** Every number on the roster is one or two
   digits, and 0–9 are all real jerseys, so a single digit can't submit on its
   own — it might be the first half of a two-digit number. For #0 through #9,
