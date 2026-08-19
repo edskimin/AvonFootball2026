@@ -1,2 +1,8 @@
 .DS_Store
 .claude/
+
+# Never commit credentials
+.env
+.env.*
+*.key
+secrets/
