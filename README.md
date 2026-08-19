@@ -65,13 +65,22 @@ on.
   here at all. The keypad is fixed to the bottom of the screen, the buttons are
   bigger than system keys, and nothing ever covers the card. On a laptop you
   can just type: digits, Backspace, and Enter all work.
-- **Spoken announcements.** An **Audio** toggle on the lookup page reads each
+- **Spoken announcements.** The button beside the number display reads each
   result aloud — "Number 88. E.J. Skimin, Junior, Tight End and Linebacker."
   Shared numbers say "two players" first so you know to keep listening, and an
   unused number says "No player." It leads with the number on purpose: with the
   phone at your side you can't see what you typed, and a mistyped number would
-  otherwise be announced as a confident wrong answer. Speed is Slow / Normal /
-  Fast, and both settings persist. Default is off — nobody gets surprise audio.
+  otherwise be announced as a confident wrong answer.
+
+  One button, tapped to cycle, like a media control:
+
+  | Glyph | State |
+  | --- | --- |
+  | speaker + pause | off (the default — nobody gets surprise audio) |
+  | speaker + ▶ | on, normal speed |
+  | speaker + ▶▶ | on, fast |
+
+  The choice persists. Speeds live in `AUDIO_STATES` in `app.js`.
 
   This uses the browser's built-in speech, so it costs nothing, needs no
   account, and works offline. Names it mispronounces are fixed with the `Say`

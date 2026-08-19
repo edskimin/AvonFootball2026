@@ -12,16 +12,22 @@
   var cardTemplate = document.getElementById("card-template");
   var playerTemplate = document.getElementById("player-template");
 
-  var audioToggle = document.getElementById("audio-toggle");
-  var audioLabel = document.getElementById("audio-toggle-label");
-  var rates = document.getElementById("rates");
+  var audioBtn = document.getElementById("audio-btn");
 
   var roster = null;
   var entry = "";
 
   var speech = window.speechSynthesis || null;
-  var audioOn = false;
-  var rate = 1;
+
+  // One control, three states, cycled by tapping. Off is first so the page
+  // never makes noise until someone asks for it.
+  var AUDIO_STATES = [
+    { name: "off",    rate: 0,   label: "Announcements off. Tap to turn on.",              title: "Announcements off" },
+    { name: "normal", rate: 1,   label: "Announcements on, normal speed. Tap for fast.",   title: "Announcements on" },
+    { name: "fast",   rate: 1.3, label: "Announcements on, fast. Tap to turn off.",        title: "Announcements on, fast" }
+  ];
+
+  var audioIndex = 0;
 
   var GRADE_SPOKEN = { 9: "Freshman", 10: "Sophomore", 11: "Junior", 12: "Senior" };
 
@@ -98,66 +104,53 @@
     return parts.join(" ");
   }
 
+  function audioState() {
+    return AUDIO_STATES[audioIndex];
+  }
+
   function speak(text) {
-    if (!audioOn || !speech) return;
+    var state = audioState();
+    if (!state.rate || !speech) return;
     // Cancel first, so a new lookup cuts off the previous announcement
     // instead of queueing behind it.
     speech.cancel();
     var utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = rate;
+    utterance.rate = state.rate;
     utterance.lang = "en-US";
     speech.speak(utterance);
   }
 
-  function setAudio(on) {
-    audioOn = on;
-    audioToggle.setAttribute("aria-pressed", String(on));
-    audioLabel.textContent = on ? "Audio on" : "Audio off";
-    rates.hidden = !on;
-    if (!on && speech) speech.cancel();
-    try { localStorage.setItem("avon.audio", on ? "1" : "0"); } catch (e) {}
-  }
-
-  function setRate(value) {
-    rate = value;
-    var buttons = rates.querySelectorAll(".rate-btn");
-    for (var i = 0; i < buttons.length; i++) {
-      buttons[i].setAttribute("aria-pressed", String(Number(buttons[i].dataset.rate) === value));
-    }
-    try { localStorage.setItem("avon.rate", String(value)); } catch (e) {}
+  function applyAudioState() {
+    var state = audioState();
+    audioBtn.dataset.state = state.name;
+    audioBtn.setAttribute("aria-label", state.label);
+    audioBtn.title = state.title;
+    if (!state.rate && speech) speech.cancel();
+    try { localStorage.setItem("avon.audioState", state.name); } catch (e) {}
   }
 
   function bindAudio() {
     if (!speech) {
-      // No speech support: hide the controls rather than offer a dead button.
-      document.getElementById("audiobar").hidden = true;
+      // No speech support: hide the control rather than offer a dead button.
+      audioBtn.hidden = true;
       return;
     }
 
-    audioToggle.addEventListener("click", function () {
-      var turningOn = !audioOn;
-      setAudio(turningOn);
-      // Speaking inside this tap satisfies the iOS gesture requirement and
-      // confirms out loud that it worked.
-      if (turningOn) speak("Audio on.");
+    audioBtn.addEventListener("click", function () {
+      audioIndex = (audioIndex + 1) % AUDIO_STATES.length;
+      applyAudioState();
+      // Confirming out loud doubles as the iOS gesture that unlocks speech,
+      // and lets you hear the speed you just picked.
+      if (audioState().name === "normal") speak("Announcements on.");
+      else if (audioState().name === "fast") speak("Fast.");
     });
 
-    rates.addEventListener("click", function (event) {
-      var button = event.target.closest(".rate-btn");
-      if (!button) return;
-      setRate(Number(button.dataset.rate));
-      speak("Speed set.");
-    });
-
-    var savedRate, savedAudio;
-    try {
-      savedRate = localStorage.getItem("avon.rate");
-      savedAudio = localStorage.getItem("avon.audio");
-    } catch (e) {}
-
-    setRate(savedRate ? Number(savedRate) : 1);
-    // Off unless previously turned on — nobody should get unexpected audio.
-    setAudio(savedAudio === "1");
+    var saved;
+    try { saved = localStorage.getItem("avon.audioState"); } catch (e) {}
+    for (var i = 0; i < AUDIO_STATES.length; i++) {
+      if (AUDIO_STATES[i].name === saved) audioIndex = i;
+    }
+    applyAudioState();
   }
 
   /* ---------- Entry ---------- */
