@@ -9,8 +9,8 @@ the press box, and it works with no signal once it has been opened.
 
 - **`index.html`** — the full roster. This is the landing page.
 - **`lookup.html`** — the number lookup. Enter a number, get the player.
-- The roster, two lines per player with positions
-  right-aligned on the name's line. Sortable four ways:
+  The roster shows two lines per player, with positions right-aligned on the
+  name's line. Sortable four ways:
 
   | Sort | Behaviour |
   | --- | --- |
