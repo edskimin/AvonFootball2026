@@ -65,6 +65,17 @@ on.
   here at all. The keypad is fixed to the bottom of the screen, the buttons are
   bigger than system keys, and nothing ever covers the card. On a laptop you
   can just type: digits, Backspace, and Enter all work.
+- **Spoken announcements.** An **Audio** toggle on the lookup page reads each
+  result aloud — "Number 88. E.J. Skimin, Junior, Tight End and Linebacker."
+  Shared numbers say "two players" first so you know to keep listening, and an
+  unused number says "No player." It leads with the number on purpose: with the
+  phone at your side you can't see what you typed, and a mistyped number would
+  otherwise be announced as a confident wrong answer. Speed is Slow / Normal /
+  Fast, and both settings persist. Default is off — nobody gets surprise audio.
+
+  This uses the browser's built-in speech, so it costs nothing, needs no
+  account, and works offline. Names it mispronounces are fixed with the `Say`
+  column, below.
 - **Two digits fire automatically.** Every number on the roster is one or two
   digits, and 0–9 are all real jerseys, so a single digit can't submit on its
   own — it might be the first half of a two-digit number. For #0 through #9,
@@ -84,8 +95,8 @@ on.
 
 ## Updating the roster
 
-Edit `data/roster-2026.csv` — same column layout as the media roster export
-(`#, Name, GR, HT, WT, Pos, Pos`) — then regenerate:
+Edit `data/roster-2026.csv` — the media roster export layout plus one extra
+column (`#, Name, GR, HT, WT, Pos, Pos, Say`) — then regenerate:
 
 ```bash
 python3 tools/build_roster.py
@@ -102,6 +113,20 @@ what clears the old files for phones that were offline.
 
 You can also hand-edit `roster.json` directly for a one-off change, but the CSV
 is the source of truth and the next build will overwrite you.
+
+### The `Say` column
+
+Optional, and blank for every player right now. It controls only how a name is
+*spoken* — never what is printed. Write the whole name as it should sound:
+
+| Name | Say |
+| --- | --- |
+| E.J. Skimin | `E.J. SKIM-in` |
+| Matviy Palacz | `Mat-VEY PAL-ich` |
+
+Leave it blank and the real spelling is spoken. Roughly fifteen to twenty of
+the 118 names are likely to need one — the surnames with non-English letter
+patterns are the ones to check first. The build prints how many are set.
 
 ## Running it locally
 

@@ -44,6 +44,22 @@
     <p class="entry__display entry__display--empty" id="entry-display">
       <span class="visually-hidden">Jersey number </span><span id="entry-value">00</span>
     </p>
+    <div class="audiobar" id="audiobar">
+      <button class="audio-toggle" id="audio-toggle" type="button" aria-pressed="false">
+        <svg class="audio-toggle__icon" viewBox="0 0 20 20" width="15" height="15" aria-hidden="true" focusable="false">
+          <path d="M3 8h3l4-3.5v11L6 12H3z" fill="currentColor"/>
+          <path class="audio-toggle__wave" d="M13 7.2a4 4 0 0 1 0 5.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <path class="audio-toggle__wave" d="M15.4 5a7 7 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <path class="audio-toggle__slash" d="M14 6 L4.5 15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <span id="audio-toggle-label">Audio off</span>
+      </button>
+      <div class="rates" id="rates" role="group" aria-label="Speaking speed" hidden>
+        <button class="rate-btn" type="button" data-rate="0.8" aria-pressed="false">Slow</button>
+        <button class="rate-btn" type="button" data-rate="1" aria-pressed="true">Normal</button>
+        <button class="rate-btn" type="button" data-rate="1.3" aria-pressed="false">Fast</button>
+      </div>
+    </div>
   </div>
 </div>
 

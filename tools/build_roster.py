@@ -3,6 +3,16 @@
 
 Usage:  python3 tools/build_roster.py [data/roster-2026.csv]
 
+The "Say" column is an optional phonetic respelling used only by the spoken
+announcement on the lookup page. Write the WHOLE name as it should sound, not
+just the tricky part:
+
+    E.J. Skimin      ->  E.J. SKIM-in
+    Matviy Palacz    ->  Mat-VEY PAL-ich
+
+Leave it blank and the real spelling is spoken instead. It never changes what
+is printed on screen.
+
 Sort order within a jersey number (this is the rule the page relies on):
   1. higher grade first
   2. then heavier player first
@@ -46,6 +56,8 @@ def main():
         if not row or not row[0].strip():
             continue
         num, name, grade, height, weight = (c.strip() for c in row[:5])
+        # Column 8 when present: how to pronounce the name aloud.
+        say = row[7].strip() if len(row) > 7 else ""
         # The sheet has two position columns (offense, then defense). Either can
         # be blank; keep the order and drop duplicates.
         positions = []
@@ -54,14 +66,18 @@ def main():
             if pos and pos not in positions:
                 positions.append(pos)
 
-        players.append({
+        entry = {
             "num": int(num),
             "name": name,
             "grade": int(grade),
             "height": normalize_height(height),
             "weight": int(weight),
             "pos": positions,
-        })
+        }
+        # Only carry it when set, so a blank column adds nothing to the file.
+        if say:
+            entry["say"] = say
+        players.append(entry)
 
     players.sort(key=lambda p: (-p["grade"], -p["weight"], last_name(p["name"])))
 
@@ -78,10 +94,12 @@ def main():
 
     OUT.write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
 
+    spoken = sum(1 for p in players if p.get("say"))
     shared = sum(1 for v in numbers.values() if len(v) > 1)
     crowded = {k: len(v) for k, v in numbers.items() if len(v) > 2}
     print(f"{len(players)} players -> {OUT.relative_to(ROOT)}")
     print(f"{len(numbers)} numbers in use, {shared} shared by two players")
+    print(f"{spoken} of {len(players)} have a pronunciation set")
     if crowded:
         print(f"WARNING: more than two players on {crowded} - the card layout only styles two")
 

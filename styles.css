@@ -857,3 +857,81 @@ body.has-keypad {
   .card--latest { grid-template-columns: 116px 1fr; }
   .card--latest .card__num { font-size: 58px; }
 }
+
+/* ---------- Audio controls (lookup page) ---------- */
+
+.audiobar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 7px;
+  min-height: 30px;
+}
+
+.audio-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--slate);
+  background: var(--white);
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 12px 5px 10px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.audio-toggle[aria-pressed="true"] {
+  color: var(--white);
+  background: var(--purple);
+  border-color: var(--purple);
+}
+
+.audio-toggle:focus-visible {
+  outline: 3px solid var(--purple);
+  outline-offset: 2px;
+}
+
+.audio-toggle__icon { display: block; flex: none; }
+
+/* The slash shows only when muted; the waves only when playing. */
+.audio-toggle[aria-pressed="true"] .audio-toggle__slash { display: none; }
+.audio-toggle[aria-pressed="false"] .audio-toggle__wave { display: none; }
+
+.rates {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.rate-btn {
+  font-family: var(--sans);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--purple);
+  background: var(--white);
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 11px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.rate-btn[aria-pressed="true"] {
+  color: var(--white);
+  background: var(--purple-light);
+  border-color: var(--purple-light);
+}
+
+.rate-btn:focus-visible {
+  outline: 3px solid var(--purple);
+  outline-offset: 2px;
+}

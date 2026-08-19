@@ -12,8 +12,24 @@
   var cardTemplate = document.getElementById("card-template");
   var playerTemplate = document.getElementById("player-template");
 
+  var audioToggle = document.getElementById("audio-toggle");
+  var audioLabel = document.getElementById("audio-toggle-label");
+  var rates = document.getElementById("rates");
+
   var roster = null;
   var entry = "";
+
+  var speech = window.speechSynthesis || null;
+  var audioOn = false;
+  var rate = 1;
+
+  var GRADE_SPOKEN = { 9: "Freshman", 10: "Sophomore", 11: "Junior", 12: "Senior" };
+
+  var POS_SPOKEN = {
+    QB: "Quarterback", RB: "Running Back", WR: "Wide Receiver", TE: "Tight End",
+    OL: "Offensive Lineman", DL: "Defensive Lineman", LB: "Linebacker",
+    DB: "Defensive Back", K: "Kicker", P: "Punter", LS: "Long Snapper"
+  };
 
   /* ---------- Data ---------- */
 
@@ -46,6 +62,102 @@
 
     emptyState.appendChild(lede);
     emptyState.appendChild(note);
+  }
+
+  /* ---------- Speaking ---------- */
+
+  function speakableName(player) {
+    // The Say column is a phonetic respelling for the voice only. It never
+    // changes what is printed on the card.
+    return player.say || player.name;
+  }
+
+  function speakablePositions(player) {
+    var named = player.pos.map(function (pos) {
+      return POS_SPOKEN[pos] || pos;
+    });
+    if (named.length < 2) return named.join("");
+    return named.slice(0, -1).join(", ") + " and " + named[named.length - 1];
+  }
+
+  function announcement(num, players) {
+    if (!players.length) return "Number " + num + ". No player.";
+
+    // Leading with the number matters: with the phone at your side you can't
+    // see what you typed, and a mistyped number would otherwise be announced
+    // as a confident wrong answer.
+    var parts = ["Number " + num + (players.length > 1 ? ", two players." : ".")];
+
+    players.forEach(function (player) {
+      var bits = [speakableName(player), GRADE_SPOKEN[player.grade] || ""];
+      var pos = speakablePositions(player);
+      if (pos) bits.push(pos);
+      parts.push(bits.filter(Boolean).join(", ") + ".");
+    });
+
+    return parts.join(" ");
+  }
+
+  function speak(text) {
+    if (!audioOn || !speech) return;
+    // Cancel first, so a new lookup cuts off the previous announcement
+    // instead of queueing behind it.
+    speech.cancel();
+    var utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = rate;
+    utterance.lang = "en-US";
+    speech.speak(utterance);
+  }
+
+  function setAudio(on) {
+    audioOn = on;
+    audioToggle.setAttribute("aria-pressed", String(on));
+    audioLabel.textContent = on ? "Audio on" : "Audio off";
+    rates.hidden = !on;
+    if (!on && speech) speech.cancel();
+    try { localStorage.setItem("avon.audio", on ? "1" : "0"); } catch (e) {}
+  }
+
+  function setRate(value) {
+    rate = value;
+    var buttons = rates.querySelectorAll(".rate-btn");
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].setAttribute("aria-pressed", String(Number(buttons[i].dataset.rate) === value));
+    }
+    try { localStorage.setItem("avon.rate", String(value)); } catch (e) {}
+  }
+
+  function bindAudio() {
+    if (!speech) {
+      // No speech support: hide the controls rather than offer a dead button.
+      document.getElementById("audiobar").hidden = true;
+      return;
+    }
+
+    audioToggle.addEventListener("click", function () {
+      var turningOn = !audioOn;
+      setAudio(turningOn);
+      // Speaking inside this tap satisfies the iOS gesture requirement and
+      // confirms out loud that it worked.
+      if (turningOn) speak("Audio on.");
+    });
+
+    rates.addEventListener("click", function (event) {
+      var button = event.target.closest(".rate-btn");
+      if (!button) return;
+      setRate(Number(button.dataset.rate));
+      speak("Speed set.");
+    });
+
+    var savedRate, savedAudio;
+    try {
+      savedRate = localStorage.getItem("avon.rate");
+      savedAudio = localStorage.getItem("avon.audio");
+    } catch (e) {}
+
+    setRate(savedRate ? Number(savedRate) : 1);
+    // Off unless previously turned on — nobody should get unexpected audio.
+    setAudio(savedAudio === "1");
   }
 
   /* ---------- Entry ---------- */
@@ -128,6 +240,7 @@
     );
   }
 
+  bindAudio();
   render();
   measureKeypad();
   window.addEventListener("resize", measureKeypad);
@@ -159,6 +272,8 @@
     // A fat-fingered number is the common case for a miss, so it cleans up
     // after itself instead of leaving a dead card in the history.
     if (!players.length) scheduleDismiss(card);
+
+    speak(announcement(num, players));
 
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
