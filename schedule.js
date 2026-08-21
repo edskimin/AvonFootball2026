@@ -41,7 +41,8 @@
 
     var frag = document.createDocumentFragment();
     data.games.forEach(function (game, index) {
-      frag.appendChild(buildGame(game, index === nextIndex, game.date < today));
+      var played = game.date < today && !game.result;
+      frag.appendChild(buildGame(game, index === nextIndex, played));
     });
 
     list.appendChild(frag);
@@ -62,15 +63,23 @@
     opponent.appendChild(prefix);
     opponent.appendChild(document.createTextNode(game.opponent));
 
-    el.querySelector(".game__site").textContent = game.away ? "Away" : "Home";
+    var site = el.querySelector(".game__site");
+    var meta = [game.label];
 
-    // The gold card already says which game is next, so the meta line stays
-    // short enough to hold one line on a phone.
-    var bits = [game.label];
-    if (game.time) bits.push(game.time);
-    if (game.result) bits.unshift(game.result);
+    if (game.result) {
+      // Once a game is played the score is the interesting fact, so it takes
+      // the pill and the kickoff time drops off as no longer useful.
+      site.textContent = game.result;
+      site.classList.add("game__result");
+      site.classList.add(/^\s*L\b/i.test(game.result) ? "game__result--loss"
+                                                     : "game__result--win");
+      meta.push(game.away ? "Away" : "Home");
+    } else {
+      site.textContent = game.away ? "Away" : "Home";
+      if (game.time) meta.push(game.time);
+    }
 
-    el.querySelector(".game__meta").textContent = bits.join(" · ");
+    el.querySelector(".game__meta").textContent = meta.join(" · ");
     return el;
   }
 

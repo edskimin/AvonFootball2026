@@ -10,7 +10,7 @@
 
    Bump CACHE whenever you ship a change. */
 
-var CACHE = "eagles-roster-v15";
+var CACHE = "eagles-roster-v16";
 
 var ASSETS = [
   "./",
