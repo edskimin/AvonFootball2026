@@ -1029,17 +1029,13 @@ body.has-keypad {
 /* A deep purple panel, echoing the printed team card. It is also what makes
    gold labels legible: Eagle Gold manages 1.7:1 on the page background and
    8.6:1 here, so the dark ground is doing real work, not just decoration. */
+/* Sits inside a .stack, so it lines up with the game cards automatically. */
 .staff {
-  max-width: var(--measure);
-  margin: 30px auto 0;
+  margin: 30px 0 0;
   padding: 22px 20px 24px;
   background: var(--purple-deep);
   border-radius: var(--radius);
   color: var(--white);
-}
-
-@media (min-width: 756px) {
-  .staff { margin-left: var(--gutter); margin-right: var(--gutter); }
 }
 
 .staff__head {
@@ -1113,6 +1109,6 @@ body.has-keypad {
 }
 
 @media (min-width: 520px) {
-  .staff__row dt { flex: 0 0 44%; }
-  .staff__row dd { flex: 1; text-align: right; }
+  .staff__row dt { flex: 0 0 250px; }
+  .staff__row dd { flex: 1; text-align: left; }
 }
