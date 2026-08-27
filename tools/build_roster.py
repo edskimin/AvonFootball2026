@@ -14,6 +14,10 @@ Leave it blank and the real spelling is spoken instead. It never changes what
 is printed on screen.
 
 Sort order within a jersey number (this is the rule the page relies on):
+Column 9 ("Captain") marks a captain with "Yes"; it shows as a gold C on the
+card and is spoken as e.g. "Senior Captain".
+
+Sort order within a jersey number (this is the rule the page relies on):
   1. higher grade first
   2. then heavier player first
   3. then last name, so the order never wobbles between builds
@@ -73,7 +77,12 @@ def announcement(num, players):
     parts = [head]
     for p in players:
         # The Say column is a phonetic respelling for the voice only.
-        bits = [p.get("say") or p["name"], GRADE_SPOKEN.get(p["grade"], "")]
+        # "Senior Captain" reads the way a PA announcer would say it, rather
+        # than stranding "Captain" as its own clause.
+        rank = GRADE_SPOKEN.get(p["grade"], "")
+        if p.get("captain"):
+            rank = (rank + " Captain").strip()
+        bits = [p.get("say") or p["name"], rank]
         pos = spoken_positions(p)
         if pos:
             bits.append(pos)
@@ -96,6 +105,8 @@ def main():
         num, name, grade, height, weight = (c.strip() for c in row[:5])
         # Column 8 when present: how to pronounce the name aloud.
         say = row[7].strip() if len(row) > 7 else ""
+        # Column 9: "Yes" marks a team captain.
+        captain = (row[8].strip().lower() == "yes") if len(row) > 8 else False
         # The sheet has two position columns (offense, then defense). Either can
         # be blank; keep the order and drop duplicates.
         positions = []
@@ -112,9 +123,11 @@ def main():
             "weight": int(weight),
             "pos": positions,
         }
-        # Only carry it when set, so a blank column adds nothing to the file.
+        # Only carry these when set, so blank columns add nothing to the file.
         if say:
             entry["say"] = say
+        if captain:
+            entry["captain"] = True
         players.append(entry)
 
     players.sort(key=lambda p: (-p["grade"], -p["weight"], last_name(p["name"])))
@@ -136,11 +149,13 @@ def main():
     OUT.write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
 
     spoken = sum(1 for p in players if p.get("say"))
+    captains = sum(1 for p in players if p.get("captain"))
     shared = sum(1 for v in numbers.values() if len(v) > 1)
     crowded = {k: len(v) for k, v in numbers.items() if len(v) > 2}
     print(f"{len(players)} players -> {OUT.relative_to(ROOT)}")
     print(f"{len(numbers)} numbers in use, {shared} shared by two players")
     print(f"{spoken} of {len(players)} have a pronunciation set")
+    print(f"{captains} captains")
     if crowded:
         print(f"WARNING: more than two players on {crowded} - the card layout only styles two")
 

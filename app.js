@@ -342,7 +342,9 @@
 
   function buildPlayer(player) {
     var el = playerTemplate.content.firstElementChild.cloneNode(true);
-    el.querySelector(".player__name").textContent = player.name;
+    var nameEl = el.querySelector(".player__name");
+    nameEl.textContent = player.name;
+    if (player.captain) nameEl.appendChild(captainMark());
 
     var meta = el.querySelector(".player__meta");
     var facts = ["Gr. " + player.grade, player.height, player.weight + " lbs"];
@@ -360,6 +362,19 @@
     }
 
     return el;
+  }
+
+  // Gold C after the name. The visually-hidden word carries the meaning for
+  // anyone who cannot see the badge.
+  function captainMark() {
+    var mark = document.createElement("span");
+    mark.className = "captain";
+    mark.textContent = "C";
+    var label = document.createElement("span");
+    label.className = "visually-hidden";
+    label.textContent = " Captain";
+    mark.appendChild(label);
+    return mark;
   }
 
   function buildMissing(num) {

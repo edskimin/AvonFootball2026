@@ -225,7 +225,18 @@
 
   function buildPlayer(player) {
     var el = playerTemplate.content.firstElementChild.cloneNode(true);
-    el.querySelector(".player__name").textContent = player.name;
+    var nameEl = el.querySelector(".player__name");
+    nameEl.textContent = player.name;
+    if (player.captain) {
+      var mark = document.createElement("span");
+      mark.className = "captain";
+      mark.textContent = "C";
+      var label = document.createElement("span");
+      label.className = "visually-hidden";
+      label.textContent = " Captain";
+      mark.appendChild(label);
+      nameEl.appendChild(mark);
+    }
     // Positions sit inline and right-aligned, so each player fits on two lines.
     el.querySelector(".player__pos-inline").textContent = player.pos.join(" / ");
     el.querySelector(".player__meta").textContent =

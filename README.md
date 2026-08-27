@@ -112,6 +112,8 @@ also what happens for a number nobody wears.
   digits, and 0–9 are all real jerseys, so a single digit can't submit on its
   own — it might be the first half of a two-digit number. For #0 through #9,
   tap the digit and then **GO**.
+- **Captains** carry a gold C beside the name and are announced as e.g.
+  "Senior Captain". Set with `Yes` in the CSV's `Captain` column.
 - **Shared numbers show both players.** 27 of the 91 numbers in use are worn by
   two players. Both appear on one card, higher grade on top. When both players
   are the same grade (#35, #44, #68), the heavier player goes on top.
@@ -216,7 +218,7 @@ in gold.
 | `tools/build_schedule.py` | CSV → `schedule.json` |
 | `roster.json` | Generated — do not hand-edit if you can avoid it |
 | `sw.js` | Offline cache. Bump `CACHE` on every content change |
-| `data/roster-2026.csv` | Source of truth for the roster |
+| `data/roster-2026.csv` | Source of truth for the roster (incl. Say and Captain) |
 | `tools/build_roster.py` | CSV → `roster.json` |
 | `tools/fetch_fonts.py` | Re-downloads the self-hosted fonts (rarely needed) |
 | `assets/eagle.png` | Eagle mark, background removed |

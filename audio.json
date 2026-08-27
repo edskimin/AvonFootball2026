@@ -5,8 +5,8 @@
  "clips": {
   "0": {
    "file": "assets/audio/0.mp3",
-   "hash": "b48e4240fcc3",
-   "bytes": 14647
+   "hash": "3fb89be56101",
+   "bytes": 16632
   },
   "1": {
    "file": "assets/audio/1.mp3",
@@ -25,7 +25,7 @@
   },
   "4": {
    "file": "assets/audio/4.mp3",
-   "hash": "0679013279ee",
+   "hash": "1dc544c49d35",
    "bytes": 31678
   },
   "5": {
@@ -35,18 +35,18 @@
   },
   "6": {
    "file": "assets/audio/6.mp3",
-   "hash": "436562f932fc",
-   "bytes": 13706
+   "hash": "0f0ec4a3e691",
+   "bytes": 15378
   },
   "7": {
    "file": "assets/audio/7.mp3",
-   "hash": "32129bdec287",
-   "bytes": 27394
+   "hash": "31281830190f",
+   "bytes": 28753
   },
   "8": {
    "file": "assets/audio/8.mp3",
-   "hash": "e6d94efcec94",
-   "bytes": 19453
+   "hash": "88bd1f140d09",
+   "bytes": 23842
   },
   "9": {
    "file": "assets/audio/9.mp3",
@@ -90,8 +90,8 @@
   },
   "17": {
    "file": "assets/audio/17.mp3",
-   "hash": "d99c5fbbcc02",
-   "bytes": 12766
+   "hash": "1c21f71351b1",
+   "bytes": 15691
   },
   "18": {
    "file": "assets/audio/18.mp3",
@@ -110,13 +110,13 @@
   },
   "21": {
    "file": "assets/audio/21.mp3",
-   "hash": "a2c40b66a63f",
-   "bytes": 26349
+   "hash": "aa9adec37cb2",
+   "bytes": 28544
   },
   "22": {
    "file": "assets/audio/22.mp3",
-   "hash": "416081a7f4ca",
-   "bytes": 13811
+   "hash": "fdcf9fc6adfe",
+   "bytes": 15169
   },
   "23": {
    "file": "assets/audio/23.mp3",
@@ -160,8 +160,8 @@
   },
   "31": {
    "file": "assets/audio/31.mp3",
-   "hash": "07a52641ff5e",
-   "bytes": 12348
+   "hash": "806966d88a78",
+   "bytes": 13811
   },
   "32": {
    "file": "assets/audio/32.mp3",
@@ -175,8 +175,8 @@
   },
   "34": {
    "file": "assets/audio/34.mp3",
-   "hash": "a3977ff87d16",
-   "bytes": 13079
+   "hash": "b54efac3d706",
+   "bytes": 13288
   },
   "35": {
    "file": "assets/audio/35.mp3",
@@ -230,13 +230,13 @@
   },
   "45": {
    "file": "assets/audio/45.mp3",
-   "hash": "15297589dcae",
-   "bytes": 27812
+   "hash": "a54a30f31cec",
+   "bytes": 26454
   },
   "46": {
    "file": "assets/audio/46.mp3",
-   "hash": "436661d27bbd",
-   "bytes": 16423
+   "hash": "c436861cfc77",
+   "bytes": 15691
   },
   "47": {
    "file": "assets/audio/47.mp3",
@@ -245,18 +245,18 @@
   },
   "48": {
    "file": "assets/audio/48.mp3",
-   "hash": "41cfcc4315bb",
-   "bytes": 12766
+   "hash": "114da92d7969",
+   "bytes": 13811
   },
   "49": {
    "file": "assets/audio/49.mp3",
-   "hash": "60af684fdaff",
-   "bytes": 14647
+   "hash": "05ee99e26798",
+   "bytes": 16632
   },
   "50": {
    "file": "assets/audio/50.mp3",
-   "hash": "3990350bfa4c",
-   "bytes": 44844
+   "hash": "f3fcfcf3443c",
+   "bytes": 43904
   },
   "51": {
    "file": "assets/audio/51.mp3",
@@ -265,8 +265,8 @@
   },
   "52": {
    "file": "assets/audio/52.mp3",
-   "hash": "331656f4037c",
-   "bytes": 42441
+   "hash": "b1f9dc4f9d0b",
+   "bytes": 38888
   },
   "53": {
    "file": "assets/audio/53.mp3",
@@ -310,8 +310,8 @@
   },
   "61": {
    "file": "assets/audio/61.mp3",
-   "hash": "cfcbb9e465b3",
-   "bytes": 17050
+   "hash": "9e5b1e0a3c48",
+   "bytes": 16423
   },
   "62": {
    "file": "assets/audio/62.mp3",
@@ -340,13 +340,13 @@
   },
   "67": {
    "file": "assets/audio/67.mp3",
-   "hash": "cab48e970fed",
-   "bytes": 17990
+   "hash": "d30b622881cb",
+   "bytes": 17572
   },
   "68": {
    "file": "assets/audio/68.mp3",
-   "hash": "2c80b8ee7eb3",
-   "bytes": 42441
+   "hash": "ed3c8623fd72",
+   "bytes": 39829
   },
   "70": {
    "file": "assets/audio/70.mp3",
@@ -355,7 +355,7 @@
   },
   "72": {
    "file": "assets/audio/72.mp3",
-   "hash": "d16954cf086c",
+   "hash": "c20f351582cc",
    "bytes": 16841
   },
   "73": {
@@ -410,13 +410,13 @@
   },
   "83": {
    "file": "assets/audio/83.mp3",
-   "hash": "4f585ce6e3b1",
-   "bytes": 12766
+   "hash": "8e14e95249a3",
+   "bytes": 12557
   },
   "84": {
    "file": "assets/audio/84.mp3",
-   "hash": "973e50c6aec4",
-   "bytes": 15900
+   "hash": "eeaf5fdced94",
+   "bytes": 15169
   },
   "85": {
    "file": "assets/audio/85.mp3",
@@ -425,8 +425,8 @@
   },
   "86": {
    "file": "assets/audio/86.mp3",
-   "hash": "ff2f2adc4ef2",
-   "bytes": 10363
+   "hash": "c468fa190eb8",
+   "bytes": 10885
   },
   "87": {
    "file": "assets/audio/87.mp3",

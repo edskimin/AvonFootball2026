@@ -342,6 +342,33 @@ body.has-keypad {
   overflow-wrap: break-word;
 }
 
+/* Gold disc against the purple-and-white card: reads instantly without
+   competing with the name it sits beside. */
+.captain {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 17px;
+  margin-left: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--purple-deep);
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  /* Keeps the disc from riding up with the larger hero name. */
+  vertical-align: 2px;
+}
+
+.card--latest .captain {
+  width: 21px;
+  height: 21px;
+  font-size: 12px;
+  margin-left: 9px;
+}
+
 .player__meta {
   font-family: var(--mono);
   font-weight: 500;
@@ -407,7 +434,34 @@ body.has-keypad {
   margin-bottom: 8px;
 }
 
-.card--latest .player__meta { font-size: 13px; }
+.card--latest /* Gold disc against the purple-and-white card: reads instantly without
+   competing with the name it sits beside. */
+.captain {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 17px;
+  margin-left: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--purple-deep);
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  /* Keeps the disc from riding up with the larger hero name. */
+  vertical-align: 2px;
+}
+
+.card--latest .captain {
+  width: 21px;
+  height: 21px;
+  font-size: 12px;
+  margin-left: 9px;
+}
+
+.player__meta { font-size: 13px; }
 
 /* Two players share the card, so neither name can run at full hero size. */
 .card--latest .card__body--pair .player__name {
@@ -650,7 +704,34 @@ body.has-keypad {
 
 .player__pos-inline:empty { display: none; }
 
-.player--row .player__meta { margin-top: 2px; }
+.player--row /* Gold disc against the purple-and-white card: reads instantly without
+   competing with the name it sits beside. */
+.captain {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 17px;
+  margin-left: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--purple-deep);
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  /* Keeps the disc from riding up with the larger hero name. */
+  vertical-align: 2px;
+}
+
+.card--latest .captain {
+  width: 21px;
+  height: 21px;
+  font-size: 12px;
+  margin-left: 9px;
+}
+
+.player__meta { margin-top: 2px; }
 
 .roster-status {
   font-family: var(--mono);
