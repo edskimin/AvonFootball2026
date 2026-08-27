@@ -7,6 +7,12 @@
   var status = document.getElementById("schedule-status");
   var template = document.getElementById("game-template");
 
+  // Optional: no staff.json just means the section stays hidden.
+  fetch("staff.json", { cache: "no-cache" })
+    .then(function (res) { return res.ok ? res.json() : null; })
+    .then(function (data) { if (data) renderStaff(data); })
+    .catch(function () {});
+
   fetch("schedule.json", { cache: "no-cache" })
     .then(function (res) {
       if (!res.ok) throw new Error("HTTP " + res.status);
@@ -81,6 +87,35 @@
 
     el.querySelector(".game__meta").textContent = meta.join(" · ");
     return el;
+  }
+
+  function renderStaff(data) {
+    var section = document.getElementById("staff");
+
+    if (data.head) {
+      document.getElementById("staff-head-role").textContent = data.head.role;
+      document.getElementById("staff-head-name").textContent = data.head.name;
+    }
+
+    // Middle dots rather than commas: several names contain a comma-like
+    // suffix ("Jr.") and the separator needs to stay unambiguous.
+    document.getElementById("staff-coaches").textContent =
+      (data.coaches || []).join("  ·  ");
+
+    var list = document.getElementById("staff-list");
+    (data.staff || []).forEach(function (row) {
+      var wrap = document.createElement("div");
+      wrap.className = "staff__row";
+      var dt = document.createElement("dt");
+      dt.textContent = row.role;
+      var dd = document.createElement("dd");
+      dd.textContent = row.name;
+      wrap.appendChild(dt);
+      wrap.appendChild(dd);
+      list.appendChild(wrap);
+    });
+
+    section.hidden = false;
   }
 
   if ("serviceWorker" in navigator && location.protocol !== "file:") {

@@ -20,6 +20,7 @@
 </head>
 <body>
 
+<div class="topbar">
 <header class="masthead">
   <div class="masthead__inner">
     <img class="masthead__mark" src="assets/eagle.png" alt="" width="480" height="205">
@@ -36,10 +37,18 @@
     </div>
   </nav>
 </header>
+</div>
 
 <main class="stack stack--roster" id="schedule-list">
   <p class="roster-status" id="schedule-status">Loading schedule…</p>
 </main>
+
+<section class="staff" id="staff" hidden>
+  <h2 class="staff__head">Coaches &amp; Staff</h2>
+  <p class="staff__lead"><span class="staff__role" id="staff-head-role"></span><span id="staff-head-name"></span></p>
+  <p class="staff__coaches" id="staff-coaches"></p>
+  <dl class="staff__list" id="staff-list"></dl>
+</section>
 
 <footer class="site-footer">
   <p>2026 Avon Eagles Varsity Football <span class="site-footer__caveat">(unofficial, subject to change)</span></p>

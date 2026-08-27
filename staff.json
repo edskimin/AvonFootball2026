@@ -1,0 +1,59 @@
+{
+ "head": {
+  "role": "Head Coach",
+  "name": "Mike Elder"
+ },
+ "coaches": [
+  "Eric Kiesel",
+  "Lee Powell",
+  "Jason Ochs",
+  "Sam Ulery",
+  "Jared Cecchetti",
+  "John Rosser",
+  "Vinny Hokavar",
+  "John Rosati",
+  "Jim Mulgrew",
+  "Bill Fishleigh",
+  "Patrick Simon",
+  "Brendan Leister",
+  "Mark Wasil",
+  "Collin Owens",
+  "Ricardo Loera",
+  "Josh Horner",
+  "Devin Cousins",
+  "Jason Whitehead",
+  "Devon Serrano",
+  "Robert Medalion",
+  "Taj Wyatt",
+  "Mike Matlack",
+  "Jerry Horner",
+  "Eric Miscudo",
+  "Dameon Willis Jr."
+ ],
+ "staff": [
+  {
+   "role": "Athletic Trainer",
+   "name": "Jim O'Leary & Beth Hauck"
+  },
+  {
+   "role": "Assistants",
+   "name": "Karin Hricovec"
+  },
+  {
+   "role": "Associate Athletic Director",
+   "name": "Mike Ryan"
+  },
+  {
+   "role": "Athletic Director",
+   "name": "Erich Frombach"
+  },
+  {
+   "role": "Principal",
+   "name": "Kristina Dobos-Buller"
+  },
+  {
+   "role": "Superintendent",
+   "name": "Mike Laub"
+  }
+ ]
+}

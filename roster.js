@@ -343,11 +343,12 @@
     measureSortbar();
   }
 
-  // The sort bar is sticky, so section headings need a scroll margin equal to
-  // its height or "jump to" lands them underneath it.
+  // The masthead and sort bar stick together, so a jumped-to heading has to
+  // clear the whole block, not just the bar.
   function measureSortbar() {
+    var topbar = document.querySelector(".topbar");
     document.documentElement.style.setProperty(
-      "--sortbar-h", sortbar.offsetHeight + "px"
+      "--topbar-h", (topbar ? topbar.offsetHeight : sortbar.offsetHeight) + "px"
     );
   }
 
