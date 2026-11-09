@@ -174,10 +174,17 @@ opening `index.html` by double-clicking it will show a "Roster didn't load"
 message. Serve it instead:
 
 ```bash
-python3 -m http.server 8000
+python3 -m http.server 8820
 ```
 
-Then open http://localhost:8000.
+Then open http://localhost:8820.
+
+**Use 8820 for this project and nothing else.** A service worker is registered
+against an origin — scheme, host and port — not against a folder, so it stays
+active for anything else later served on the same port. This one falls back to
+its own cached shell when a request fails, which means another project served
+on a shared port can end up rendering the Avon roster. Giving each
+service-worker project a port of its own avoids it entirely.
 
 While you are changing CSS or JS, the service worker will keep serving cached
 copies. In DevTools use Application → Service Workers → Unregister, or tick
