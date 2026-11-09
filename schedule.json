@@ -1,7 +1,7 @@
 {
  "team": "Avon Eagles Football",
  "season": "2026",
- "count": 10,
+ "count": 12,
  "games": [
   {
    "date": "2026-08-20",
@@ -12,7 +12,8 @@
    "opponent": "St. Ignatius",
    "away": true,
    "time": "7:00 PM",
-   "result": "W 22-21"
+   "result": "W 22-21",
+   "note": ""
   },
   {
    "date": "2026-08-28",
@@ -23,7 +24,8 @@
    "opponent": "Pine-Richland",
    "away": false,
    "time": "7:00 PM",
-   "result": "L 18-48"
+   "result": "L 18-48",
+   "note": ""
   },
   {
    "date": "2026-09-04",
@@ -34,7 +36,8 @@
    "opponent": "Upper Arlington",
    "away": true,
    "time": "7:00 PM",
-   "result": "L 22-43"
+   "result": "L 22-43",
+   "note": ""
   },
   {
    "date": "2026-09-11",
@@ -45,7 +48,8 @@
    "opponent": "North Ridgeville",
    "away": false,
    "time": "7:00 PM",
-   "result": "W 62-21"
+   "result": "W 62-21",
+   "note": ""
   },
   {
    "date": "2026-09-18",
@@ -56,7 +60,8 @@
    "opponent": "Olmsted Falls",
    "away": true,
    "time": "7:00 PM",
-   "result": "W 58-33"
+   "result": "W 58-33",
+   "note": ""
   },
   {
    "date": "2026-09-25",
@@ -67,7 +72,8 @@
    "opponent": "Berea-Midpark",
    "away": false,
    "time": "7:00 PM",
-   "result": "W 52-21"
+   "result": "W 52-21",
+   "note": ""
   },
   {
    "date": "2026-10-02",
@@ -78,7 +84,8 @@
    "opponent": "Midview",
    "away": true,
    "time": "7:00 PM",
-   "result": "W 56-12"
+   "result": "W 56-12",
+   "note": ""
   },
   {
    "date": "2026-10-09",
@@ -89,7 +96,8 @@
    "opponent": "Steele",
    "away": false,
    "time": "7:00 PM",
-   "result": "W 45-7"
+   "result": "W 45-7",
+   "note": ""
   },
   {
    "date": "2026-10-16",
@@ -100,7 +108,8 @@
    "opponent": "Lake",
    "away": true,
    "time": "7:00 PM",
-   "result": ""
+   "result": "W 27-0",
+   "note": ""
   },
   {
    "date": "2026-10-23",
@@ -111,7 +120,32 @@
    "opponent": "Elyria",
    "away": false,
    "time": "7:00 PM",
-   "result": ""
+   "result": "W 55-7",
+   "note": ""
+  },
+  {
+   "date": "2026-11-06",
+   "month": "NOV",
+   "day": "6",
+   "weekday": "Fri",
+   "label": "Friday, November 6",
+   "opponent": "Rhodes",
+   "away": false,
+   "time": "7:00 PM",
+   "result": "W 38-8",
+   "note": "Playoffs"
+  },
+  {
+   "date": "2026-11-13",
+   "month": "NOV",
+   "day": "13",
+   "weekday": "Fri",
+   "label": "Friday, November 13",
+   "opponent": "Olmsted Falls",
+   "away": true,
+   "time": "7:00 PM",
+   "result": "",
+   "note": "Playoffs"
   }
  ]
 }

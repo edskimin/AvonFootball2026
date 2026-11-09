@@ -49,8 +49,13 @@ Edit `data/schedule-2026.csv`, then:
 python3 tools/build_schedule.py
 ```
 
-The CSV takes `date` (ISO), `opponent`, `site` (home/away), `time`, and an
-optional `result`.
+The CSV takes `date` (ISO), `opponent`, `site` (home/away), `time`, an optional
+`result`, and an optional `note` (a short tag such as `Playoffs`, shown under
+the date).
+
+**Edit the CSV, never `schedule.json`.** The build regenerates the JSON from
+the CSV, so a result typed straight into the JSON is silently lost the next
+time anything is rebuilt.
 
 Adding `result` (e.g. `W 42-21`) after a game shows the
 score on that card, which turns the page into a season record as the year goes

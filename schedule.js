@@ -62,6 +62,15 @@
     el.querySelector(".card__date-month").textContent = game.month;
     el.querySelector(".card__date-day").textContent = game.day;
 
+    // A short tag under the date, so a playoff game is distinguishable from
+    // the regular-season meeting with the same opponent.
+    if (game.note) {
+      var note = document.createElement("span");
+      note.className = "card__date-note";
+      note.textContent = game.note;
+      el.querySelector(".card__date").appendChild(note);
+    }
+
     var opponent = el.querySelector(".game__opponent");
     var prefix = document.createElement("span");
     prefix.className = "game__prefix";

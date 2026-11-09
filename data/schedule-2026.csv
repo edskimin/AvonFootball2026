@@ -1,11 +1,13 @@
-date,opponent,site,time,result
-2026-08-20,St. Ignatius,away,7:00 PM,W 22-21
-2026-08-28,Pine-Richland,home,7:00 PM,
-2026-09-04,Upper Arlington,away,7:00 PM,
-2026-09-11,North Ridgeville,home,7:00 PM,
-2026-09-18,Olmsted Falls,away,7:00 PM,
-2026-09-25,Berea-Midpark,home,7:00 PM,
-2026-10-02,Midview,away,7:00 PM,
-2026-10-09,Steele,home,7:00 PM,
-2026-10-16,Lake,away,7:00 PM,
-2026-10-23,Elyria,home,7:00 PM,
+date,opponent,site,time,result,note
+2026-08-20,St. Ignatius,away,7:00 PM,W 22-21,
+2026-08-28,Pine-Richland,home,7:00 PM,L 18-48,
+2026-09-04,Upper Arlington,away,7:00 PM,L 22-43,
+2026-09-11,North Ridgeville,home,7:00 PM,W 62-21,
+2026-09-18,Olmsted Falls,away,7:00 PM,W 58-33,
+2026-09-25,Berea-Midpark,home,7:00 PM,W 52-21,
+2026-10-02,Midview,away,7:00 PM,W 56-12,
+2026-10-09,Steele,home,7:00 PM,W 45-7,
+2026-10-16,Lake,away,7:00 PM,W 27-0,
+2026-10-23,Elyria,home,7:00 PM,W 55-7,
+2026-11-06,Rhodes,home,7:00 PM,W 38-8,Playoffs
+2026-11-13,Olmsted Falls,away,7:00 PM,,Playoffs

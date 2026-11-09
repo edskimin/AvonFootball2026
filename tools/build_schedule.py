@@ -9,6 +9,7 @@ Columns:
   site         home | away
   time         free text, e.g. "7:00 PM". Blank is fine and renders as nothing.
   result       optional, e.g. "W 42-21". Add after a game is played.
+  note         optional short tag, e.g. "Playoffs". Shown beside the date.
 
 Weekday and month labels are baked in here rather than derived in the browser,
 which keeps the page free of date parsing and timezone surprises.
@@ -51,6 +52,7 @@ def main():
             "away": away,
             "time": (row.get("time") or "").strip(),
             "result": (row.get("result") or "").strip(),
+            "note": (row.get("note") or "").strip(),
         })
 
     games.sort(key=lambda g: g["date"])
@@ -64,10 +66,13 @@ def main():
 
     OUT.write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
 
+    wins = sum(1 for g in games if g["result"].upper().startswith("W"))
+    losses = sum(1 for g in games if g["result"].upper().startswith("L"))
     home = sum(1 for g in games if not g["away"])
     missing = [g["date"] for g in games if not g["time"]]
     print(f"{len(games)} games -> {OUT.relative_to(ROOT)}")
     print(f"{home} home, {len(games) - home} away")
+    print(f"record {wins}-{losses} through {wins + losses} played")
     if missing:
         print(f"no kickoff time set for {len(missing)} games: {', '.join(missing)}")
 
